@@ -1,6 +1,6 @@
 {
   "name": "typeable",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A library for checking and casting types.",
   "main": "./src/index.js",
   "ava": {
@@ -13,6 +13,14 @@
   "scripts": {
     "test": "ava"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpepermint/typeablejs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xpepermint/typeablejs/issues"
+  },
+  "homepage": "https://github.com/xpepermint/typeablejs#readme",
   "keywords": [
     "type",
     "types",
