@@ -263,7 +263,7 @@ test('cast (short syntax)', (t) => {
   t.deepEqual(typeable.cast(100, 'string'), '100');
 });
 
-test.only('cast (custom types)', (t) => {
+test('cast (custom types)', (t) => {
   let options = null;
   let types = null;
 
