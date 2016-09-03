@@ -1,12 +1,34 @@
 {
   "name": "typeable",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "./src/index.js",
+  "ava": {
+    "files": [
+      "./tests/*.js"
+    ],
+    "concurrency": 4,
+    "failFast": true
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "scripts": {
+    "test": "ava"
+  },
+  "keywords": [
+    "type",
+    "types",
+    "convert",
+    "converter",
+    "cast",
+    "casting",
+    "string",
+    "boolean",
+    "integer",
+    "number",
+    "date"
+  ],
+  "author": "Kristijan Sedlak (Xpepermint)",
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "0.16.0"
+  }
 }
