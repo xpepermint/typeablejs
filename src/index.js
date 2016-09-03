@@ -204,6 +204,11 @@ exports.cast = function(v, options, types) {
       return exports.toDate(v);
   }
 
+  // handling custom absent values
+  if (exports.isAbsent(v)) {
+    return null;
+  }
+
   // handling custom type
   var converter = types[name];
   if (converter) {
