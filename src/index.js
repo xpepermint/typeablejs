@@ -117,7 +117,7 @@ exports.toInteger = function(v) {
   } else if (exports.isFloat(v)) {
     return parseInt(v);
   } else {
-    let pv = parseInt(v);
+    var pv = parseInt(v);
     if (exports.isInteger(pv)) {
       return pv;
     } else if (exports.toBoolean(v)) {
@@ -132,7 +132,7 @@ exports.toFloat = function(v) {
   if (exports.isFloat(v)) {
     return v;
   } else {
-    let pv = parseFloat(v);
+    var pv = parseFloat(v);
     if (exports.isFloat(pv)) {
       return pv;
     } else if (exports.toBoolean(v)) {
@@ -144,9 +144,9 @@ exports.toFloat = function(v) {
 }
 
 exports.toDate = function(v) {
-  let date = exports.isDate(v) ? v : new Date(v);
-  let time = date.getTime();
-  let isValid = (
+  var date = exports.isDate(v) ? v : new Date(v);
+  var time = date.getTime();
+  var isValid = (
     exports.isPresent(v)
     && exports.isInteger(time)
   );
