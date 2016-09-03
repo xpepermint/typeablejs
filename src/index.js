@@ -86,6 +86,14 @@ exports.isPresent = function(v) {
   return !exports.isAbsent(v);
 }
 
+exports.isFunction = function(v) {
+  return typeof v === 'function';
+}
+
+exports.isClass = function(v) {
+  return exports.isFunction(v);
+}
+
 exports.toString = function(v) {
   if (exports.isString(v)) {
     return v;

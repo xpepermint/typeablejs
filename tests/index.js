@@ -156,6 +156,24 @@ test('isPresent', (t) => {
   t.is(typeable.isPresent(''), false);
 });
 
+test('isFunction', (t) => {
+  t.is(typeable.isFunction(undefined), false);
+  t.is(typeable.isFunction(null), false);
+  t.is(typeable.isFunction(NaN), false);
+  t.is(typeable.isFunction(() => {}), true);
+  t.is(typeable.isFunction(function() {}), true);
+  t.is(typeable.isPresent(class {}), true);
+});
+
+test('isClass', (t) => {
+  t.is(typeable.isFunction(undefined), false);
+  t.is(typeable.isFunction(null), false);
+  t.is(typeable.isFunction(NaN), false);
+  t.is(typeable.isFunction(() => {}), true);
+  t.is(typeable.isFunction(function() {}), true);
+  t.is(typeable.isPresent(class {}), true);
+});
+
 test('toString', (t) => {
   t.is(typeable.toString(), null);
   t.is(typeable.toString(undefined), null);
