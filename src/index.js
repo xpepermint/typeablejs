@@ -164,7 +164,18 @@ exports.toArray = function(v) {
   }
 }
 
-exports.cast = function(v, type) {
+exports.toType = function(v, converter) {
+  if (exports.isAbsent(v)) {
+    return null;
+  } else {
+    let type = v.constructor.name
+    return converter(v, type);
+  }
+}
+
+exports.cast = function(v, options={}, converters={}) {
+  var type = exports.isObject(options) ? options.type : options;
+
   switch(type) {
     case 'string':
       return exports.toString(v);

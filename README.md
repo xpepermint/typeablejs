@@ -15,23 +15,25 @@ $ npm install --save typeable
 ```js
 import {cast} from 'typeable';
 
-cast(100, 'string'); // => '100'
-cast('true', 'boolean'); // => true
+cast(100, {type: 'string'}); // => '100'
+cast('true', {type: 'boolean'}); // => true
+cast('10.13', {type: 'integer'}); // => 10
+cast('10.13', {type: 'float'}); // => 10.13
+cast(1229380112300, {type: 'date'}); // => Date(2008-12-15T22:28:32.300Z)
+cast('John', {type: 'array'}); // => ['John']
+cast('John', {type: '[]'}); // => ['John']
+cast(100, {type: '[string]'}); // => ['100']
+cast([100], {type: '[string]'}); // => ['100']
+cast('true', {type: '[boolean]'}); // => [true]
+cast(['true'], {type: '[boolean]'}); // => [true]
+cast('10.13', {type: '[integer]'}); // => [10]
+cast(['10.13'], {type: '[integer]'}); // => [10]
+cast('10.13', {type: '[float]'}); // => [10.13]
+cast(['10.13'], {type: '[float]'}); // => [10.13]
+cast(1229380112300, {type: '[date]'}); // => [Date(2008-12-15T22:28:32.300Z)]
+cast([1229380112300], {type: '[date]'}); // => [Date(2008-12-15T22:28:32.300Z)]
+
 cast('10.13', 'integer'); // => 10
-cast('10.13', 'float'); // => 10.13
-cast(1229380112300, 'date'); // => Date(2008-12-15T22:28:32.300Z)
-cast('John', 'array'); // => ['John']
-cast('John', '[]'); // => ['John']
-cast(100, '[string]'); // => ['100']
-cast([100], '[string]'); // => ['100']
-cast('true', '[boolean]'); // => [true]
-cast(['true'], '[boolean]'); // => [true]
-cast('10.13', '[integer]'); // => [10]
-cast(['10.13'], '[integer]'); // => [10]
-cast('10.13', '[float]'); // => [10.13]
-cast(['10.13'], '[float]'); // => [10.13]
-cast(1229380112300, '[date]'); // => [Date(2008-12-15T22:28:32.300Z)]
-cast([1229380112300], '[date]'); // => [Date(2008-12-15T22:28:32.300Z)]
 ```
 
 ## API
@@ -102,7 +104,7 @@ cast([1229380112300], '[date]'); // => [Date(2008-12-15T22:28:32.300Z)]
 **toArray(value)**
 > Converts the `value` to array.
 
-**cast(value, type)**
+**cast(value, {type})**
 > Converts the `value` to the specified `type`.
 
 ## License (MIT)
