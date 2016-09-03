@@ -164,19 +164,12 @@ exports.toArray = function(v) {
   }
 }
 
-exports.toType = function(v, converter) {
-  if (exports.isAbsent(v)) {
-    return null;
-  } else {
-    let type = v.constructor.name
-    return converter(v, type);
-  }
-}
+exports.cast = function(v, options={}, types={}) {
+  var name = exports.isString(options)
+    ? options.toLowerCase()
+    : options.type || options.constructor.name.toLowerCase();
 
-exports.cast = function(v, options={}, converters={}) {
-  var type = exports.isObject(options) ? options.type : options;
-
-  switch(type) {
+  switch(name) {
     case 'string':
       return exports.toString(v);
     case 'boolean':
@@ -200,7 +193,12 @@ exports.cast = function(v, options={}, converters={}) {
       return exports.toArray(v).map(i => exports.toFloat(i));
     case '[date]':
       return  exports.toArray(v).map(i => exports.toDate(i));
-    default:
-      throw new Error(`Invalid type ${type}`);
   }
+
+  let converter = types[name];
+  if (converter) {
+    return converter(v, options);
+  }
+
+  throw new Error(`Unknown type ${type}`);
 }

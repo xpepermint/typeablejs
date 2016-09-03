@@ -15,6 +15,7 @@ $ npm install --save typeable
 ```js
 import {cast} from 'typeable';
 
+// general use
 cast(100, {type: 'string'}); // => '100'
 cast('true', {type: 'boolean'}); // => true
 cast('10.13', {type: 'integer'}); // => 10
@@ -33,7 +34,15 @@ cast(['10.13'], {type: '[float]'}); // => [10.13]
 cast(1229380112300, {type: '[date]'}); // => [Date(2008-12-15T22:28:32.300Z)]
 cast([1229380112300], {type: '[date]'}); // => [Date(2008-12-15T22:28:32.300Z)]
 
+// short syntax
 cast('10.13', 'integer'); // => 10
+
+// custom types
+cast('value', {type: 'custom'}, {
+  custom: (value, {type}) => `${type} ${value}`
+}); // => 'custom value'
+
+// check tests for more ...
 ```
 
 ## API

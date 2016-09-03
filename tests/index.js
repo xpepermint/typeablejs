@@ -257,5 +257,29 @@ test('cast', (t) => {
   t.deepEqual(typeable.cast(['10.13'], {type: '[float]'}), [10.13]);
   t.deepEqual(typeable.cast(100000, {type: '[date]'}), [new Date(100000)]);
   t.deepEqual(typeable.cast([100000], {type: '[date]'}), [new Date(100000)]);
+});
+
+test('cast (short syntax)', (t) => {
   t.deepEqual(typeable.cast(100, 'string'), '100');
+});
+
+test.only('cast (custom types)', (t) => {
+  let options = null;
+  let types = null;
+
+  options = {type: 'schema'};
+  types = {schema: (value, options) => `${value} as ${options.type}`};
+  t.deepEqual(typeable.cast(100, options, types), '100 as schema');
+
+  options = new class Schema {
+    constructor() {}
+  };
+  types = {schema: (value, options) => `${value} as ${options.constructor.name}`};
+  t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
+
+  options = new class Schema {
+    constructor() {this.type = 'custom'}
+  };
+  types = {custom: (value, options) => `${value} as ${options.constructor.name}`};
+  t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
 });
