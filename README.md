@@ -2,7 +2,7 @@
 
 # typeable.js
 
-> Type checking/casting library.
+> A library for checking and casting types.
 
 ## Install
 
