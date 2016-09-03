@@ -99,6 +99,8 @@ exports.toString = function(v) {
 exports.toBoolean = function(v) {
   if (exports.isBoolean(v)) {
     return v;
+  } else if (exports.isUndefined(v) || exports.isNull(v)) {
+    return null;
   } else {
     return (
       parseFloat(v) > 0
@@ -114,6 +116,8 @@ exports.toBoolean = function(v) {
 exports.toInteger = function(v) {
   if (exports.isInteger(v)) {
     return v;
+  } else if (exports.isUndefined(v) || exports.isNull(v)) {
+    return null;
   } else if (exports.isFloat(v)) {
     return parseInt(v);
   } else {
@@ -131,6 +135,8 @@ exports.toInteger = function(v) {
 exports.toFloat = function(v) {
   if (exports.isFloat(v)) {
     return v;
+  } else if (exports.isUndefined(v) || exports.isNull(v)) {
+    return null;
   } else {
     var pv = parseFloat(v);
     if (exports.isFloat(pv)) {
@@ -157,16 +163,23 @@ exports.toDate = function(v) {
 exports.toArray = function(v) {
   if (exports.isArray(v)) {
     return v;
-  } else if (exports.isPresent(v)) {
-    return [v];
-  } else {
+  } else if (exports.isUndefined(v) || exports.isNull(v)) {
+    return null;
+  } else if (!exports.isValue(v)) {
     return [];
+  } else {
+    return [v];
   }
 }
 
 exports.cast = function(v, options, types) {
   if (!options) options = {};
   if (!types) types = {};
+
+  // handling null values
+  if (exports.isUndefined(v) || exports.isNull(v)) {
+    return null;
+  }
 
   // retriving type name
   var name = null;
@@ -185,7 +198,12 @@ exports.cast = function(v, options, types) {
 
   // handling arrays
   if (exports.isArray(name) && exports.isPresent(name)) {
-    return exports.toArray(v).map(i => exports.cast(i, name[0], types));
+    var arr = exports.toArray(v);
+    if (exports.isPresent(arr)) {
+      return arr.map(i => exports.cast(i, name[0], types));
+    } else {
+      return arr;
+    }
   } else if (exports.isArray(name) || name === 'array') {
     return exports.toArray(v);
   }
@@ -202,11 +220,6 @@ exports.cast = function(v, options, types) {
       return exports.toFloat(v);
     case 'date':
       return exports.toDate(v);
-  }
-
-  // handling custom absent values
-  if (exports.isAbsent(v)) {
-    return null;
   }
 
   // handling custom type

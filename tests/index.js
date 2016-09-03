@@ -157,17 +157,22 @@ test('isPresent', (t) => {
 });
 
 test('toString', (t) => {
+  t.is(typeable.toString(), null);
+  t.is(typeable.toString(undefined), null);
   t.is(typeable.toString(null), null);
   t.is(typeable.toString(''), '');
+  t.is(typeable.toString(NaN), 'NaN');
+  t.is(typeable.toString(Infinity), 'Infinity');
   t.is(typeable.toString(true), 'true');
   t.is(typeable.toString(100.1), '100.1');
   t.is(typeable.toString([1,2]), '1,2');
 });
 
 test('toBoolean', (t) => {
+  t.is(typeable.toBoolean(), null);
+  t.is(typeable.toBoolean(undefined), null);
+  t.is(typeable.toBoolean(null), null);
   t.is(typeable.toBoolean(false), false);
-  t.is(typeable.toBoolean(undefined), false);
-  t.is(typeable.toBoolean(null), false);
   t.is(typeable.toBoolean(NaN), false);
   t.is(typeable.toBoolean(0), false);
   t.is(typeable.toBoolean(-100), false);
@@ -187,9 +192,10 @@ test('toBoolean', (t) => {
 });
 
 test('toInteger', (t) => {
+  t.is(typeable.toInteger(), null);
+  t.is(typeable.toInteger(undefined), null);
+  t.is(typeable.toInteger(null), null);
   t.is(typeable.toInteger(false), 0);
-  t.is(typeable.toInteger(undefined), 0);
-  t.is(typeable.toInteger(null), 0);
   t.is(typeable.toInteger(NaN), 0);
   t.is(typeable.toInteger(0), 0);
   t.is(typeable.toInteger(-100), -100);
@@ -202,9 +208,10 @@ test('toInteger', (t) => {
 });
 
 test('toFloat', (t) => {
+  t.is(typeable.toFloat(), null);
+  t.is(typeable.toFloat(undefined), null);
+  t.is(typeable.toFloat(null), null);
   t.is(typeable.toFloat(false), 0);
-  t.is(typeable.toFloat(undefined), 0);
-  t.is(typeable.toFloat(null), 0);
   t.is(typeable.toFloat(NaN), 0);
   t.is(typeable.toFloat(0), 0);
   t.is(typeable.toFloat(-100), -100);
@@ -222,21 +229,23 @@ test('toDate', (t) => {
   t.is(typeable.toDate(d), d);
   t.deepEqual(typeable.toDate(100000), new Date(100000));
   t.deepEqual(typeable.toDate('2016-01-02'), new Date('2016-01-02'));
+  t.is(typeable.toDate(), null);
   t.is(typeable.toDate(undefined), null);
   t.is(typeable.toDate(null), null);
   t.is(typeable.toDate('8sadufsdjfk1231'), null);
 });
 
 test('toArray', (t) => {
-  t.deepEqual(typeable.toArray([]), []);
-  t.deepEqual(typeable.toArray({}), []);
-  t.deepEqual(typeable.toArray(undefined), []);
-  t.deepEqual(typeable.toArray(null), []);
+  t.deepEqual(typeable.toArray(), null);
+  t.deepEqual(typeable.toArray(undefined), null);
+  t.deepEqual(typeable.toArray(null), null);
   t.deepEqual(typeable.toArray(NaN), []);
-  t.deepEqual(typeable.toArray(''), []);
+  t.deepEqual(typeable.toArray(Infinity), []);
+  t.deepEqual(typeable.toArray([]), []);
+  t.deepEqual(typeable.toArray({}), [{}]);
+  t.deepEqual(typeable.toArray(''), ['']);
   t.deepEqual(typeable.toArray(0), [0]);
   t.deepEqual(typeable.toArray('john'), ['john']);
-  t.deepEqual(typeable.toArray(Infinity), [Infinity]);
 });
 
 test('cast (general type)', (t) => {
@@ -271,7 +280,7 @@ test('cast (custom type)', (t) => {
   t.deepEqual(typeable.cast(100, options, types), '100 as schema');
   t.deepEqual(typeable.cast(undefined, options, types), null);
   t.deepEqual(typeable.cast(null, options, types), null);
-  t.deepEqual(typeable.cast(NaN, options, types), null);
+  t.deepEqual(typeable.cast(NaN, options, types), 'NaN as schema');
 
   options = new class Schema {};
   types = {schema: (value, options) => `${value} as ${options.constructor.name}`};
@@ -291,12 +300,10 @@ test('cast (array with custom type)', (t) => {
   options = [new class Schema {}];
   types = {schema: (value, options) => `${value} as ${options.constructor.name}`};
   t.deepEqual(typeable.cast(100, options, types), ['100 as Schema']);
-  t.deepEqual(typeable.cast(undefined, options, types), []);
-  t.deepEqual(typeable.cast(null, options, types), []);
+  t.deepEqual(typeable.cast(undefined, options, types), null);
+  t.deepEqual(typeable.cast(null, options, types), null);
   t.deepEqual(typeable.cast(NaN, options, types), []);
-
-  options = [new class Schema {}];
-  types = {schema: (value, options) => `${value} as ${options.constructor.name}`};
+  t.deepEqual(typeable.cast(Infinity, options, types), []);
 });
 
 test('cast (short syntax)', (t) => {
