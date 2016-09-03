@@ -164,7 +164,10 @@ exports.toArray = function(v) {
   }
 }
 
-exports.cast = function(v, options={}, types={}) {
+exports.cast = function(v, options, types) {
+  if (!options) options = {};
+  if (!types) types = {};
+
   var name = exports.isString(options)
     ? options.toLowerCase()
     : options.type || options.constructor.name.toLowerCase();
@@ -195,7 +198,7 @@ exports.cast = function(v, options={}, types={}) {
       return  exports.toArray(v).map(i => exports.toDate(i));
   }
 
-  let converter = types[name];
+  var converter = types[name];
   if (converter) {
     return converter(v, options);
   }
