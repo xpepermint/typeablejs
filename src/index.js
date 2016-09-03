@@ -168,10 +168,29 @@ exports.cast = function(v, options, types) {
   if (!options) options = {};
   if (!types) types = {};
 
-  var name = exports.isString(options)
-    ? options.toLowerCase()
-    : options.type || options.constructor.name.toLowerCase();
+  // retriving type name
+  var name = null;
+  if (exports.isArray(options)) {
+    name = options;
+  } else if (exports.isString(options)) {
+    name = options;
+  } else if (!exports.isUndefined(options.type)) {
+    name = options.type;
+  } else if (!exports.isUndefined(options.constructor)) {
+    name = options.constructor.name
+  }
+  if (exports.isString(name)) {
+    name = name.toLowerCase();
+  }
 
+  // handling arrays
+  if (exports.isArray(name) && exports.isPresent(name)) {
+    return exports.toArray(v).map(i => exports.cast(i, name[0], types));
+  } else if (exports.isArray(name) || name === 'array') {
+    return exports.toArray(v);
+  }
+
+  // handling general types
   switch(name) {
     case 'string':
       return exports.toString(v);
@@ -183,25 +202,14 @@ exports.cast = function(v, options, types) {
       return exports.toFloat(v);
     case 'date':
       return exports.toDate(v);
-    case 'array':
-    case '[]':
-      return exports.toArray(v);
-    case '[string]':
-      return exports.toArray(v).map(i => exports.toString(i));
-    case '[boolean]':
-      return exports.toArray(v).map(i => exports.toBoolean(i));
-    case '[integer]':
-      return exports.toArray(v).map(i => exports.toInteger(i));
-    case '[float]':
-      return exports.toArray(v).map(i => exports.toFloat(i));
-    case '[date]':
-      return  exports.toArray(v).map(i => exports.toDate(i));
   }
 
+  // handling custom type
   var converter = types[name];
   if (converter) {
     return converter(v, options);
   }
 
-  throw new Error(`Unknown type ${type}`);
+  // handling unknown types
+  throw new Error(`Unknown type ${name}`);
 }
