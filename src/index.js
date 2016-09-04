@@ -93,6 +93,13 @@ exports.isFunction = function(v) {
 exports.isClass = function(v) {
   return exports.isFunction(v);
 }
+exports.isPromise = function(v) {
+  return (
+    exports.isPresent(v)
+    && v.constructor
+    && v.constructor.name === 'Promise'
+  );
+}
 
 exports.toString = function(v) {
   if (exports.isString(v)) {

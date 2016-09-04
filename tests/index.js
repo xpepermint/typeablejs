@@ -174,6 +174,17 @@ test('isClass', (t) => {
   t.is(typeable.isPresent(class {}), true);
 });
 
+test('isPromise', (t) => {
+  t.is(typeable.isPromise(undefined), false);
+  t.is(typeable.isPromise(null), false);
+  t.is(typeable.isPromise(NaN), false);
+  t.is(typeable.isPromise(() => {}), false);
+  t.is(typeable.isPromise(function() {}), false);
+  t.is(typeable.isPromise(class {}), false);
+  t.is(typeable.isPromise(Promise.resolve({})), true);
+  t.is(typeable.isPromise(new Promise((a,b) => {})), true);
+});
+
 test('toString', (t) => {
   t.is(typeable.toString(), null);
   t.is(typeable.toString(undefined), null);
