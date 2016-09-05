@@ -198,17 +198,20 @@ exports.cast = function(v, options, types) {
 
   // retriving type name
   var name = null;
-  if (exports.isArray(options)) {
-    name = options;
+  if (!exports.isUndefined(options.type)) {
+    if (exports.isString(options.type)) {
+      name = options.type.toLowerCase();
+    } else if (exports.isArray(options.type)) {
+      name = options.type.map(t => exports.isString(t) ? t.toLowerCase() : t);
+    } else if (!exports.isUndefined(options.type.constructor)) {
+      name = options.type.constructor.name.toLowerCase()
+    }
   } else if (exports.isString(options)) {
-    name = options;
-  } else if (!exports.isUndefined(options.type)) {
-    name = options.type;
+    name = options.toLowerCase();
+  } else if (exports.isArray(options)) {
+    name = options.map(t => exports.isString(t) ? t.toLowerCase() : t);
   } else if (!exports.isUndefined(options.constructor)) {
-    name = options.constructor.name
-  }
-  if (exports.isString(name)) {
-    name = name.toLowerCase();
+    name = options.constructor.name.toLowerCase()
   }
 
   // handling arrays

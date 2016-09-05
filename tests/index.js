@@ -315,6 +315,10 @@ test('cast (custom type)', (t) => {
   types = {schema: (value, options) => `${value} as ${options.constructor.name}`};
   t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
 
+  options = {type: new class Schema {}};
+  types = {schema: (value, options) => `${value} as ${options.type.constructor.name}`};
+  t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
+
   options = new class Schema {
     constructor() {this.type = 'custom'}
   };
