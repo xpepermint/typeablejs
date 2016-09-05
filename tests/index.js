@@ -278,16 +278,13 @@ test('toArray', (t) => {
 });
 
 test('cast (general type)', (t) => {
+  // long format
   t.is(typeable.cast(100, {type: 'string'}), '100');
   t.is(typeable.cast('true', {type: 'boolean'}), true);
   t.is(typeable.cast('10.13', {type: 'integer'}), 10);
   t.is(typeable.cast('10.13', {type: 'float'}), 10.13);
   t.deepEqual(typeable.cast(100000, {type: 'date'}), new Date(100000));
-});
-
-test('cast (array with general type)', (t) => {
   t.deepEqual(typeable.cast('john', {type: 'array'}), ['john']);
-  t.deepEqual(typeable.cast('john', {type: []}), ['john']);
   t.deepEqual(typeable.cast('john', {type: []}), ['john']);
   t.deepEqual(typeable.cast(100, {type: ['string']}), ['100']);
   t.deepEqual(typeable.cast([100], {type: ['string']}), ['100']);
@@ -299,11 +296,19 @@ test('cast (array with general type)', (t) => {
   t.deepEqual(typeable.cast(['10.13'], {type: ['float']}), [10.13]);
   t.deepEqual(typeable.cast(100000, {type: ['date']}), [new Date(100000)]);
   t.deepEqual(typeable.cast([100000], {type: ['date']}), [new Date(100000)]);
+  // short format
+  t.is(typeable.cast(100, 'string'), '100');
+  t.is(typeable.cast('true', 'boolean'), true);
+  t.deepEqual(typeable.cast('john', 'array'), ['john']);
+  t.deepEqual(typeable.cast('john', []), ['john']);
+  t.deepEqual(typeable.cast([100], ['string']), ['100']);
 });
 
 test('cast (custom type)', (t) => {
   let options = null;
   let types = null;
+
+  // short format
 
   options = {type: 'schema'};
   types = {schema: (value) => `${value} as schema`};
@@ -316,9 +321,19 @@ test('cast (custom type)', (t) => {
   types = {schema: (value) => `${value} as Schema`};
   t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
 
+  options = [new class Schema {}];
+  types = {schema: (value) => `${value} as Schema`};
+  t.deepEqual(typeable.cast(100, options, types), ['100 as Schema']);
+  t.deepEqual(typeable.cast(undefined, options, types), null);
+  t.deepEqual(typeable.cast(null, options, types), null);
+  t.deepEqual(typeable.cast(NaN, options, types), []);
+  t.deepEqual(typeable.cast(Infinity, options, types), []);
+
   options = new class Schema {constructor() {this.type = 'custom'}};
   types = {custom: (value) => `${value} as Schema`};
   t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
+
+  // long format
 
   options = {type: new class Schema {}};
   types = {schema: (value) => `${value} as Schema`};
@@ -327,21 +342,4 @@ test('cast (custom type)', (t) => {
   options = {type: [new class Schema {}]};
   types = {schema: (value) => `${value} as Schema`};
   t.deepEqual(typeable.cast(100, options, types), ['100 as Schema']);
-});
-
-test('cast (array with custom type)', (t) => {
-  let options = null;
-  let types = null;
-
-  options = [new class Schema {}];
-  types = {schema: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, options, types), ['100 as Schema']);
-  t.deepEqual(typeable.cast(undefined, options, types), null);
-  t.deepEqual(typeable.cast(null, options, types), null);
-  t.deepEqual(typeable.cast(NaN, options, types), []);
-  t.deepEqual(typeable.cast(Infinity, options, types), []);
-});
-
-test('cast (short syntax)', (t) => {
-  t.deepEqual(typeable.cast(100, 'string'), '100');
 });
