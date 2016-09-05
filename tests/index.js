@@ -288,6 +288,7 @@ test('cast (general type)', (t) => {
 test('cast (array with general type)', (t) => {
   t.deepEqual(typeable.cast('john', {type: 'array'}), ['john']);
   t.deepEqual(typeable.cast('john', {type: []}), ['john']);
+  t.deepEqual(typeable.cast('john', {type: []}), ['john']);
   t.deepEqual(typeable.cast(100, {type: ['string']}), ['100']);
   t.deepEqual(typeable.cast([100], {type: ['string']}), ['100']);
   t.deepEqual(typeable.cast('true', {type: ['boolean']}), [true]);
@@ -305,25 +306,27 @@ test('cast (custom type)', (t) => {
   let types = null;
 
   options = {type: 'schema'};
-  types = {schema: (value, options) => `${value} as ${options.type}`};
+  types = {schema: (value) => `${value} as schema`};
   t.deepEqual(typeable.cast(100, options, types), '100 as schema');
   t.deepEqual(typeable.cast(undefined, options, types), null);
   t.deepEqual(typeable.cast(null, options, types), null);
   t.deepEqual(typeable.cast(NaN, options, types), 'NaN as schema');
 
   options = new class Schema {};
-  types = {schema: (value, options) => `${value} as ${options.constructor.name}`};
+  types = {schema: (value) => `${value} as Schema`};
+  t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
+
+  options = new class Schema {constructor() {this.type = 'custom'}};
+  types = {custom: (value) => `${value} as Schema`};
   t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
 
   options = {type: new class Schema {}};
-  types = {schema: (value, options) => `${value} as ${options.type.constructor.name}`};
+  types = {schema: (value) => `${value} as Schema`};
   t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
 
-  options = new class Schema {
-    constructor() {this.type = 'custom'}
-  };
-  types = {custom: (value, options) => `${value} as ${options.constructor.name}`};
-  t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
+  options = {type: [new class Schema {}]};
+  types = {schema: (value) => `${value} as Schema`};
+  t.deepEqual(typeable.cast(100, options, types), ['100 as Schema']);
 });
 
 test('cast (array with custom type)', (t) => {
@@ -331,7 +334,7 @@ test('cast (array with custom type)', (t) => {
   let types = null;
 
   options = [new class Schema {}];
-  types = {schema: (value, options) => `${value} as ${options.constructor.name}`};
+  types = {schema: (value) => `${value} as Schema`};
   t.deepEqual(typeable.cast(100, options, types), ['100 as Schema']);
   t.deepEqual(typeable.cast(undefined, options, types), null);
   t.deepEqual(typeable.cast(null, options, types), null);
