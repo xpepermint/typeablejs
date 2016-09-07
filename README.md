@@ -47,6 +47,24 @@ cast('value', {type: 'custom'}, {
 
 ## API
 
+### Data Types
+
+| Type | Description
+|------|------------
+| 'string' | A string value.
+| ['string'] | An array of string values.
+| 'boolean' | A boolean value.
+| ['boolean'] | An array of boolean values.
+| 'integer' | An integer number.
+| ['integer'] | An array of integer numbers.
+| 'float' | A float number.
+| ['float'] | An array of float numbers.
+| 'date' | A date.
+| ['date'] | An array of dates.
+| 'array' or [] | An array of values.
+
+### Methods
+
 **isUndefined(value)**
 > Returns `true` if the `value` is undefined.
 
