@@ -53,12 +53,14 @@ cast('value', 'Custom', {
 
 | Type | Description
 |------|------------
+| 'Any' | A value of different types (excluding arrays).
+| ['Any'] | An array with values of different types.
 | 'String' | A string value.
 | ['String'] | An array of string values.
 | 'Boolean' | A boolean value.
 | ['Boolean'] | An array of boolean values.
 | 'Integer' | An integer number.
-| ['integer'] | An array of integer numbers.
+| ['Integer'] | An array of integer numbers.
 | 'Float' | A float number.
 | ['Float'] | An array of float numbers.
 | 'Date' | A date.

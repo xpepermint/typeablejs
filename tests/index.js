@@ -277,6 +277,14 @@ test('toArray', (t) => {
   t.deepEqual(typeable.toArray('john'), ['john']);
 });
 
+test('cast (Any type)', (t) => {
+  t.is(typeable.cast(100, 'Any'), 100);
+  t.is(typeable.cast('100', 'Any'), '100');
+  t.deepEqual(typeable.cast(100, ['Any']), [100]);
+  t.deepEqual(typeable.cast('100', ['Any']), ['100']);
+  t.deepEqual(typeable.cast(['100', 200], ['Any']), ['100', 200]);
+});
+
 test('cast (general type)', (t) => {
   t.is(typeable.cast(100, 'String'), '100');
   t.is(typeable.cast('true', 'Boolean'), true);

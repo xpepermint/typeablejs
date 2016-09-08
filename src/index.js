@@ -223,6 +223,7 @@ exports.cast = function(v, type, options) {
   // casting a value
 
   var converters = Object.assign({
+    'Any': (v) => v,
     'String': exports.toString,
     'Boolean': exports.toBoolean,
     'Integer': exports.toInteger,
