@@ -192,11 +192,13 @@ exports.cast = function(v, options, types) {
   if (!types) types = {};
 
   // handling null values
+
   if (exports.isUndefined(v) || exports.isNull(v)) {
     return null;
   }
 
   // retriving type name
+
   var name = null;
   if (!exports.isUndefined(options.type)) {
     if (exports.isString(options.type)) {
@@ -215,6 +217,7 @@ exports.cast = function(v, options, types) {
   }
 
   // handling arrays
+
   if (exports.isArray(name) && exports.isPresent(name)) {
     var arr = exports.toArray(v);
     if (exports.isPresent(arr)) {
@@ -226,26 +229,20 @@ exports.cast = function(v, options, types) {
     return exports.toArray(v);
   }
 
-  // handling general types
-  switch(name) {
-    case 'string':
-      return exports.toString(v);
-    case 'boolean':
-      return exports.toBoolean(v);
-    case 'integer':
-      return exports.toInteger(v);
-    case 'float':
-      return exports.toFloat(v);
-    case 'date':
-      return exports.toDate(v);
-  }
+  // casting a value
 
-  // handling custom type
-  var converter = types[name];
+  let converters = Object.assign({
+    string: exports.toString,
+    boolean: exports.toBoolean,
+    integer: exports.toInteger,
+    float: exports.toFloat,
+    date: exports.toDate
+  }, types);
+
+  var converter = converters[name];
   if (converter) {
     return converter(v, options);
+  } else {
+    throw new Error(`Unknown type ${name}`);
   }
-
-  // handling unknown types
-  throw new Error(`Unknown type ${name}`);
 }

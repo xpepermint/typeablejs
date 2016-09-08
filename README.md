@@ -131,8 +131,14 @@ cast('value', {type: 'custom'}, {
 **toArray(value)**
 > Converts the `value` to array.
 
-**cast(value, {type})**
+**cast(value, {type}, types)**
 > Converts the `value` to the specified `type`.
+
+| Name | Type | Required | Default | Description
+|------|------|----------|---------|------------
+| value | Any | Yes | - | A value to be casted.
+| type | String/Object | Yes | - | Data type.
+| types | Object | No | An object of built-in types. | An object for adding new data type and overriding existing ones.
 
 ## License (MIT)
 
