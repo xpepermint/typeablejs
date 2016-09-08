@@ -278,68 +278,47 @@ test('toArray', (t) => {
 });
 
 test('cast (general type)', (t) => {
-  // long format
-  t.is(typeable.cast(100, {type: 'string'}), '100');
-  t.is(typeable.cast('true', {type: 'boolean'}), true);
-  t.is(typeable.cast('10.13', {type: 'integer'}), 10);
-  t.is(typeable.cast('10.13', {type: 'float'}), 10.13);
-  t.deepEqual(typeable.cast(100000, {type: 'date'}), new Date(100000));
-  t.deepEqual(typeable.cast('john', {type: 'array'}), ['john']);
-  t.deepEqual(typeable.cast('john', {type: []}), ['john']);
-  t.deepEqual(typeable.cast(100, {type: ['string']}), ['100']);
-  t.deepEqual(typeable.cast([100], {type: ['string']}), ['100']);
-  t.deepEqual(typeable.cast('true', {type: ['boolean']}), [true]);
-  t.deepEqual(typeable.cast(['true'], {type: ['boolean']}), [true]);
-  t.deepEqual(typeable.cast('10.13', {type: ['integer']}), [10]);
-  t.deepEqual(typeable.cast(['10.13'], {type: ['integer']}), [10]);
-  t.deepEqual(typeable.cast('10.13', {type: ['float']}), [10.13]);
-  t.deepEqual(typeable.cast(['10.13'], {type: ['float']}), [10.13]);
-  t.deepEqual(typeable.cast(100000, {type: ['date']}), [new Date(100000)]);
-  t.deepEqual(typeable.cast([100000], {type: ['date']}), [new Date(100000)]);
-  // short format
-  t.is(typeable.cast(100, 'string'), '100');
-  t.is(typeable.cast('true', 'boolean'), true);
-  t.deepEqual(typeable.cast('john', 'array'), ['john']);
+  t.is(typeable.cast(100, 'String'), '100');
+  t.is(typeable.cast('true', 'Boolean'), true);
+  t.is(typeable.cast('10.13', 'Integer'), 10);
+  t.is(typeable.cast('10.13', 'Float'), 10.13);
+  t.deepEqual(typeable.cast(100000, 'Date'), new Date(100000));
+  t.deepEqual(typeable.cast('john', 'Array'), ['john']);
   t.deepEqual(typeable.cast('john', []), ['john']);
-  t.deepEqual(typeable.cast([100], ['string']), ['100']);
+  t.deepEqual(typeable.cast(100, ['String']), ['100']);
+  t.deepEqual(typeable.cast([100], ['String']), ['100']);
+  t.deepEqual(typeable.cast('true', ['Boolean']), [true]);
+  t.deepEqual(typeable.cast(['true'], ['Boolean']), [true]);
+  t.deepEqual(typeable.cast('10.13', ['Integer']), [10]);
+  t.deepEqual(typeable.cast(['10.13'], ['Integer']), [10]);
+  t.deepEqual(typeable.cast('10.13', ['Float']), [10.13]);
+  t.deepEqual(typeable.cast(['10.13'], ['Float']), [10.13]);
+  t.deepEqual(typeable.cast(100000, ['Date']), [new Date(100000)]);
+  t.deepEqual(typeable.cast([100000], ['Date']), [new Date(100000)]);
 });
 
 test('cast (custom type)', (t) => {
-  let props = null;
+  let type = null;
   let types = null;
 
   // short format
 
-  props = {type: 'schema'};
-  types = {schema: (value) => `${value} as schema`};
-  t.deepEqual(typeable.cast(100, props, {types}), '100 as schema');
-  t.deepEqual(typeable.cast(undefined, props, {types}), null);
-  t.deepEqual(typeable.cast(null, props, {types}), null);
-  t.deepEqual(typeable.cast(NaN, props, {types}), 'NaN as schema');
+  type = 'Schema';
+  types = {Schema: (value) => `${value} as Schema`};
+  t.deepEqual(typeable.cast(100, type, {types}), '100 as Schema');
+  t.deepEqual(typeable.cast(undefined, type, {types}), null);
+  t.deepEqual(typeable.cast(null, type, {types}), null);
+  t.deepEqual(typeable.cast(NaN, type, {types}), 'NaN as Schema');
 
-  props = new class Schema {};
-  types = {schema: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, props, {types}), '100 as Schema');
+  type = new class Schema {};
+  types = {Schema: (value) => `${value} as Schema`};
+  t.deepEqual(typeable.cast(100, type, {types}), '100 as Schema');
 
-  props = [new class Schema {}];
-  types = {schema: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, props, {types}), ['100 as Schema']);
-  t.deepEqual(typeable.cast(undefined, props, {types}), null);
-  t.deepEqual(typeable.cast(null, props, {types}), null);
-  t.deepEqual(typeable.cast(NaN, props, {types}), []);
-  t.deepEqual(typeable.cast(Infinity, props, {types}), []);
-
-  props = new class Schema {constructor() {this.type = 'custom'}};
-  types = {custom: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, props, {types}), '100 as Schema');
-
-  // long format
-
-  props = {type: new class Schema {}};
-  types = {schema: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, props, {types}), '100 as Schema');
-
-  props = {type: [new class Schema {}]};
-  types = {schema: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, props, {types}), ['100 as Schema']);
+  type = [new class Schema {}];
+  types = {Schema: (value) => `${value} as Schema`};
+  t.deepEqual(typeable.cast(100, type, {types}), ['100 as Schema']);
+  t.deepEqual(typeable.cast(undefined, type, {types}), null);
+  t.deepEqual(typeable.cast(null, type, {types}), null);
+  t.deepEqual(typeable.cast(NaN, type, {types}), []);
+  t.deepEqual(typeable.cast(Infinity, type, {types}), []);
 });

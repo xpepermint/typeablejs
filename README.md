@@ -16,31 +16,31 @@ $ npm install --save typeable
 import {cast} from 'typeable';
 
 // general use
-cast(100, {type: 'string'}); // => '100'
-cast('true', {type: 'boolean'}); // => true
-cast('10.13', {type: 'integer'}); // => 10
-cast('10.13', {type: 'float'}); // => 10.13
-cast(1229380112300, {type: 'date'}); // => Date(2008-12-15T22:28:32.300Z)
-cast('John', {type: 'array'}); // => ['John']
-cast('John', {type: []}); // => ['John']
-cast(100, {type: ['string']}); // => ['100']
-cast([100], {type: ['string']}); // => ['100']
-cast('true', {type: ['boolean']}); // => [true]
-cast(['true'], {type: ['boolean']}); // => [true]
-cast('10.13', {type: ['integer']}); // => [10]
-cast(['10.13'], {type: ['integer']}); // => [10]
-cast('10.13', {type: ['float']}); // => [10.13]
-cast(['10.13'], {type: ['float']}); // => [10.13]
-cast(1229380112300, {type: ['date']}); // => [Date(2008-12-15T22:28:32.300Z)]
-cast([1229380112300], {type: ['date']}); // => [Date(2008-12-15T22:28:32.300Z)]
+cast(100, 'String'); // => '100'
+cast('true', 'Boolean'); // => true
+cast('10.13', 'Integer'); // => 10
+cast('10.13', 'Float'); // => 10.13
+cast(1229380112300, 'Date'); // => Date(2008-12-15T22:28:32.300Z)
+cast('John', 'Array'); // => ['John']
+cast('John', []); // => ['John']
+cast(100, ['String']); // => ['100']
+cast([100], ['String']); // => ['100']
+cast('true', ['Boolean']); // => [true]
+cast(['true'], ['Boolean']); // => [true]
+cast('10.13', ['Integer']); // => [10]
+cast(['10.13'], ['Integer']); // => [10]
+cast('10.13', ['Float']); // => [10.13]
+cast(['10.13'], ['Float']); // => [10.13]
+cast(1229380112300, ['Date']); // => [Date(2008-12-15T22:28:32.300Z)]
+cast([1229380112300], ['Date']); // => [Date(2008-12-15T22:28:32.300Z)]
 
 // short syntax
-cast('10.13', 'integer'); // => 10
+cast('10.13', 'Integer'); // => 10
 
 // custom types
-cast('value', {type: 'custom'}, {
+cast('value', 'Custom', {
   types: {
-    custom: (value, {type}) => `${type} ${value}`
+    Custom: (value, {type}) => `${type} ${value}`
   }
 }); // => 'custom value'
 
@@ -53,17 +53,17 @@ cast('value', {type: 'custom'}, {
 
 | Type | Description
 |------|------------
-| 'string' | A string value.
-| ['string'] | An array of string values.
-| 'boolean' | A boolean value.
-| ['boolean'] | An array of boolean values.
-| 'integer' | An integer number.
+| 'String' | A string value.
+| ['String'] | An array of string values.
+| 'Boolean' | A boolean value.
+| ['Boolean'] | An array of boolean values.
+| 'Integer' | An integer number.
 | ['integer'] | An array of integer numbers.
-| 'float' | A float number.
-| ['float'] | An array of float numbers.
-| 'date' | A date.
-| ['date'] | An array of dates.
-| 'array' or [] | An array of values.
+| 'Float' | A float number.
+| ['Float'] | An array of float numbers.
+| 'Date' | A date.
+| ['Date'] | An array of dates.
+| 'Array' or [] | An array of values.
 
 ### Methods
 
@@ -133,13 +133,13 @@ cast('value', {type: 'custom'}, {
 **toArray(value)**
 > Converts the `value` to array.
 
-**cast(value, {type}, {types})**
+**cast(value, type, {types})**
 > Converts the `value` to the specified `type`.
 
 | Name | Type | Required | Default | Description
 |------|------|----------|---------|------------
 | value | Any | Yes | - | A value to be casted.
-| type | String/Object | Yes | - | Data type.
+| type | String | Yes | - | Data type name.
 | types | Object | No | An object of built-in types. | An object for adding new data type and overriding existing ones.
 
 ## License (MIT)

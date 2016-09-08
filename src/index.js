@@ -187,8 +187,7 @@ exports.toArray = function(v) {
   }
 }
 
-exports.cast = function(v, props, options) {
-  if (!props) props = {};
+exports.cast = function(v, type, options) {
   if (!options) options = {};
 
   // handling null values
@@ -200,20 +199,12 @@ exports.cast = function(v, props, options) {
   // retriving type name
 
   var name = null;
-  if (!exports.isUndefined(props.type)) {
-    if (exports.isString(props.type)) {
-      name = props.type.toLowerCase();
-    } else if (exports.isArray(props.type)) {
-      name = props.type.map(t => exports.isString(t) ? t.toLowerCase() : t);
-    } else if (!exports.isUndefined(props.type.constructor)) {
-      name = props.type.constructor.name.toLowerCase()
-    }
-  } else if (exports.isString(props)) {
-    name = props.toLowerCase();
-  } else if (exports.isArray(props)) {
-    name = props.map(t => exports.isString(t) ? t.toLowerCase() : t);
-  } else if (!exports.isUndefined(props.constructor)) {
-    name = props.constructor.name.toLowerCase()
+  if (exports.isString(type)) {
+    name = type;
+  } else if (exports.isArray(type)) {
+    name = type;
+  } else if (!exports.isUndefined(type.constructor)) {
+    name = type.constructor.name;
   }
 
   // handling arrays
@@ -225,23 +216,23 @@ exports.cast = function(v, props, options) {
     } else {
       return arr;
     }
-  } else if (exports.isArray(name) || name === 'array') {
+  } else if (exports.isArray(name) || name === 'Array') {
     return exports.toArray(v);
   }
 
   // casting a value
 
   var converters = Object.assign({
-    string: exports.toString,
-    boolean: exports.toBoolean,
-    integer: exports.toInteger,
-    float: exports.toFloat,
-    date: exports.toDate
+    'String': exports.toString,
+    'Boolean': exports.toBoolean,
+    'Integer': exports.toInteger,
+    'Float': exports.toFloat,
+    'Date': exports.toDate
   }, options.types);
 
   var converter = converters[name];
   if (converter) {
-    return converter(v, props);
+    return converter(v);
   } else {
     throw new Error(`Unknown type ${name}`);
   }
