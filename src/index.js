@@ -231,7 +231,7 @@ exports.cast = function(v, options, types) {
 
   // casting a value
 
-  let converters = Object.assign({
+  var converters = Object.assign({
     string: exports.toString,
     boolean: exports.toBoolean,
     integer: exports.toInteger,
