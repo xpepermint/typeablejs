@@ -187,9 +187,9 @@ exports.toArray = function(v) {
   }
 }
 
-exports.cast = function(v, options, types) {
+exports.cast = function(v, props, options) {
+  if (!props) props = {};
   if (!options) options = {};
-  if (!types) types = {};
 
   // handling null values
 
@@ -200,20 +200,20 @@ exports.cast = function(v, options, types) {
   // retriving type name
 
   var name = null;
-  if (!exports.isUndefined(options.type)) {
-    if (exports.isString(options.type)) {
-      name = options.type.toLowerCase();
-    } else if (exports.isArray(options.type)) {
-      name = options.type.map(t => exports.isString(t) ? t.toLowerCase() : t);
-    } else if (!exports.isUndefined(options.type.constructor)) {
-      name = options.type.constructor.name.toLowerCase()
+  if (!exports.isUndefined(props.type)) {
+    if (exports.isString(props.type)) {
+      name = props.type.toLowerCase();
+    } else if (exports.isArray(props.type)) {
+      name = props.type.map(t => exports.isString(t) ? t.toLowerCase() : t);
+    } else if (!exports.isUndefined(props.type.constructor)) {
+      name = props.type.constructor.name.toLowerCase()
     }
-  } else if (exports.isString(options)) {
-    name = options.toLowerCase();
-  } else if (exports.isArray(options)) {
-    name = options.map(t => exports.isString(t) ? t.toLowerCase() : t);
-  } else if (!exports.isUndefined(options.constructor)) {
-    name = options.constructor.name.toLowerCase()
+  } else if (exports.isString(props)) {
+    name = props.toLowerCase();
+  } else if (exports.isArray(props)) {
+    name = props.map(t => exports.isString(t) ? t.toLowerCase() : t);
+  } else if (!exports.isUndefined(props.constructor)) {
+    name = props.constructor.name.toLowerCase()
   }
 
   // handling arrays
@@ -221,7 +221,7 @@ exports.cast = function(v, options, types) {
   if (exports.isArray(name) && exports.isPresent(name)) {
     var arr = exports.toArray(v);
     if (exports.isPresent(arr)) {
-      return arr.map(i => exports.cast(i, name[0], types));
+      return arr.map(i => exports.cast(i, name[0], options));
     } else {
       return arr;
     }
@@ -237,11 +237,11 @@ exports.cast = function(v, options, types) {
     integer: exports.toInteger,
     float: exports.toFloat,
     date: exports.toDate
-  }, types);
+  }, options.types);
 
   var converter = converters[name];
   if (converter) {
-    return converter(v, options);
+    return converter(v, props);
   } else {
     throw new Error(`Unknown type ${name}`);
   }

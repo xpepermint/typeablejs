@@ -39,7 +39,9 @@ cast('10.13', 'integer'); // => 10
 
 // custom types
 cast('value', {type: 'custom'}, {
-  custom: (value, {type}) => `${type} ${value}`
+  types: {
+    custom: (value, {type}) => `${type} ${value}`
+  }
 }); // => 'custom value'
 
 // check tests for more ...
@@ -131,7 +133,7 @@ cast('value', {type: 'custom'}, {
 **toArray(value)**
 > Converts the `value` to array.
 
-**cast(value, {type}, types)**
+**cast(value, {type}, {types})**
 > Converts the `value` to the specified `type`.
 
 | Name | Type | Required | Default | Description

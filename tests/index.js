@@ -305,41 +305,41 @@ test('cast (general type)', (t) => {
 });
 
 test('cast (custom type)', (t) => {
-  let options = null;
+  let props = null;
   let types = null;
 
   // short format
 
-  options = {type: 'schema'};
+  props = {type: 'schema'};
   types = {schema: (value) => `${value} as schema`};
-  t.deepEqual(typeable.cast(100, options, types), '100 as schema');
-  t.deepEqual(typeable.cast(undefined, options, types), null);
-  t.deepEqual(typeable.cast(null, options, types), null);
-  t.deepEqual(typeable.cast(NaN, options, types), 'NaN as schema');
+  t.deepEqual(typeable.cast(100, props, {types}), '100 as schema');
+  t.deepEqual(typeable.cast(undefined, props, {types}), null);
+  t.deepEqual(typeable.cast(null, props, {types}), null);
+  t.deepEqual(typeable.cast(NaN, props, {types}), 'NaN as schema');
 
-  options = new class Schema {};
+  props = new class Schema {};
   types = {schema: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
+  t.deepEqual(typeable.cast(100, props, {types}), '100 as Schema');
 
-  options = [new class Schema {}];
+  props = [new class Schema {}];
   types = {schema: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, options, types), ['100 as Schema']);
-  t.deepEqual(typeable.cast(undefined, options, types), null);
-  t.deepEqual(typeable.cast(null, options, types), null);
-  t.deepEqual(typeable.cast(NaN, options, types), []);
-  t.deepEqual(typeable.cast(Infinity, options, types), []);
+  t.deepEqual(typeable.cast(100, props, {types}), ['100 as Schema']);
+  t.deepEqual(typeable.cast(undefined, props, {types}), null);
+  t.deepEqual(typeable.cast(null, props, {types}), null);
+  t.deepEqual(typeable.cast(NaN, props, {types}), []);
+  t.deepEqual(typeable.cast(Infinity, props, {types}), []);
 
-  options = new class Schema {constructor() {this.type = 'custom'}};
+  props = new class Schema {constructor() {this.type = 'custom'}};
   types = {custom: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
+  t.deepEqual(typeable.cast(100, props, {types}), '100 as Schema');
 
   // long format
 
-  options = {type: new class Schema {}};
+  props = {type: new class Schema {}};
   types = {schema: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, options, types), '100 as Schema');
+  t.deepEqual(typeable.cast(100, props, {types}), '100 as Schema');
 
-  options = {type: [new class Schema {}]};
+  props = {type: [new class Schema {}]};
   types = {schema: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, options, types), ['100 as Schema']);
+  t.deepEqual(typeable.cast(100, props, {types}), ['100 as Schema']);
 });
