@@ -65,6 +65,9 @@ cast('value', 'Custom', {
 | ['Float'] | An array of float numbers.
 | 'Date' | A date.
 | ['Date'] | An array of dates.
+| 'BSON.ObjectId' | A BSON object (used in MongoDB).
+| ['BSON.ObjectId'] | An array of BSON objects (used in MongoDB).
+| ['Date'] | An array of dates.
 | 'Array' or [] | An array of values.
 
 ### Methods
@@ -108,6 +111,9 @@ cast('value', 'Custom', {
 **isObject(value)**
 > Returns `true` if the `value` is an object (an object with keys).
 
+**isBSONObjectId(value)**
+> Returns `true` if the `value` is a BSON ObjectId (used in MongoDB).
+
 **isArray(value)**
 > Returns `true` if the `value` is an array.
 
@@ -131,6 +137,9 @@ cast('value', 'Custom', {
 
 **toDate(value)**
 > Converts the `value` to date.
+
+**toBSONObjectId(value)**
+> Converts the `value` to BSON ObjectId (used in MongoDB).
 
 **toArray(value)**
 > Converts the `value` to array.

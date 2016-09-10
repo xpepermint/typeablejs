@@ -1,5 +1,6 @@
 const test = require('ava');
 const typeable = require('../src');
+const ObjectId = require('bson').ObjectId;
 
 test('isUndefined', (t) => {
   t.is(typeable.isUndefined(), true);
@@ -118,6 +119,14 @@ test('isObject', (t) => {
   t.is(typeable.isObject(0), false);
   t.is(typeable.isObject(''), false);
   t.is(typeable.isObject(new Date()), false);
+});
+
+test('isBSONObjectId', (t) => {
+  t.is(typeable.isBSONObjectId({}), false);
+  t.is(typeable.isBSONObjectId(null), false);
+  t.is(typeable.isBSONObjectId(undefined), false);
+  t.is(typeable.isBSONObjectId('57d48d86339e21182a929067'), true);
+  t.is(typeable.isBSONObjectId(ObjectId('57d48d86339e21182a929067')), true);
 });
 
 test('isArray', (t) => {
@@ -303,6 +312,8 @@ test('cast (general type)', (t) => {
   t.deepEqual(typeable.cast(['10.13'], ['Float']), [10.13]);
   t.deepEqual(typeable.cast(100000, ['Date']), [new Date(100000)]);
   t.deepEqual(typeable.cast([100000], ['Date']), [new Date(100000)]);
+  t.deepEqual(typeable.cast('57d48baade5ad21216dd9ce2', ['BSONObjectId']), [new ObjectId('57d48baade5ad21216dd9ce2')]);
+  t.deepEqual(typeable.cast(['57d48baade5ad21216dd9ce2'], ['BSONObjectId']), [new ObjectId('57d48baade5ad21216dd9ce2')]);
 });
 
 test('cast (custom type)', (t) => {

@@ -1,3 +1,5 @@
+const ObjectId = require('bson').ObjectId;
+
 exports.isUndefined = function(v) {
   return typeof v === 'undefined' || v === undefined;
 }
@@ -64,6 +66,14 @@ exports.isObject = function(v) {
     !exports.isUndefined(v)
     && !exports.isNull(v)
     && v.constructor === Object
+  );
+}
+
+exports.isBSONObjectId = function(v) {
+  return (
+    !exports.isUndefined(v)
+    && !exports.isNull(v)
+    && ObjectId.isValid(v)
   );
 }
 
@@ -175,6 +185,14 @@ exports.toDate = function(v) {
   return isValid ? date : null;
 }
 
+exports.toBSONObjectId = function(v) {
+  if (ObjectId.isValid(v)) {
+    return ObjectId(v);
+  } else {
+    return null;
+  }
+}
+
 exports.toArray = function(v) {
   if (exports.isArray(v)) {
     return v;
@@ -228,7 +246,8 @@ exports.cast = function(v, type, options) {
     'Boolean': exports.toBoolean,
     'Integer': exports.toInteger,
     'Float': exports.toFloat,
-    'Date': exports.toDate
+    'Date': exports.toDate,
+    'BSONObjectId': exports.toBSONObjectId
   }, options.types);
 
   var converter = converters[name];
