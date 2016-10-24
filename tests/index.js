@@ -33,6 +33,14 @@ test('isFinite', (t) => {
   t.is(typeable.isFinite(Infinity), false);
 });
 
+test('isHex', (t) => {
+  t.is(typeable.isHex(Infinity), false);
+  t.is(typeable.isHex(0), false);
+  t.is(typeable.isHex(''), false);
+  t.is(typeable.isHex('abcdef0123456789'), true);
+  t.is(typeable.isHex('abcdefg0123456789'), false);
+});
+
 test('isInfinite', (t) => {
   t.is(typeable.isInfinite(Infinity), true);
   t.is(typeable.isInfinite(0), false);

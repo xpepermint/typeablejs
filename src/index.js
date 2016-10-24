@@ -16,6 +16,13 @@ exports.isFinite = function(v) {
   return Number.isFinite(v);
 }
 
+exports.isHex = function (s) {
+  return (
+    exports.isString(s)
+    && /^[0-9A-F]+$/i.test(s)
+  );
+}
+
 exports.isInfinite = function(v) {
   return v === Infinity;
 }
@@ -70,10 +77,16 @@ exports.isObject = function(v) {
 }
 
 exports.isBSONObjectId = function(v) {
+  if (exports.isUndefined(v)
+    || exports.isNull(v)
+  ) return false;
+
+  if (v.toString) v = v.toString();
+
   return (
-    !exports.isUndefined(v)
-    && !exports.isNull(v)
-    && ObjectId.isValid(v)
+    exports.isString(v)
+    && exports.isHex(v)
+    && v.length === 24
   );
 }
 
