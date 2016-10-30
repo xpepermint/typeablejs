@@ -9,7 +9,7 @@
 * [Contextable.js](https://github.com/xpepermint/contextablejs): Simple, unopinionated and minimalist framework for creating context objects with support for unopinionated ORM, object schemas, type casting, validation and error handling and more.
 * [ObjectSchema.js](https://github.com/xpepermint/objectschemajs): Advanced schema enforced JavaScript objects.
 * [Validatable.js](https://github.com/xpepermint/validatablejs): A library for synchronous and asynchronous validation.
-* [Handleable.js](https://github.com/xpepermint/handleablejs): A library for synchronous and asynchronous validation.
+* [Handleable.js](https://github.com/xpepermint/handleablejs): A library for synchronous and asynchronous error handling.
 
 ## Install
 
