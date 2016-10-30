@@ -4,8 +4,15 @@
 
 > A library for checking and casting types.
 
+## Related Projects
+
+* [Validatable.js](https://github.com/xpepermint/validatablejs): A library for synchronous and asynchronous validation.
+* [ObjectSchema.js](https://github.com/xpepermint/objectschemajs): Advanced schema enforced JavaScript objects.
+* [Contextable.js](https://github.com/xpepermint/contextablejs): Simple, unopinionated and minimalist framework for creating context objects with support for unopinionated ORM, object schemas, type casting, validation and error handling and more.
+
 ## Install
 
+Run the command below to install the package.
 ```
 $ npm install --save typeable
 ```
