@@ -1,6 +1,6 @@
 {
   "name": "typeable",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "A library for checking and casting types.",
   "main": "./src/index.js",
   "ava": {
