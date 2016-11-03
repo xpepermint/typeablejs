@@ -266,29 +266,30 @@ exports.toArray = toArray;
 /*
 * Converts the `value` to the specified `type`.
 */
-function cast(v, type, options = {}) {
+function cast(v, type, options) {
+    if (options === void 0) { options = {}; }
     if (isUndefined(v) || isNull(v)) {
         return null;
     }
     if (isArray(type)) {
-        return toArray(v).map(i => cast(i, type[0], options));
+        return toArray(v).map(function (i) { return cast(i, type[0], options); });
     }
     else {
-        let name = isString(type) ? type : type.constructor.name;
-        let converters = Object.assign({
-            'Any': (v) => v,
+        var name_1 = isString(type) ? type : type.constructor.name;
+        var converters = Object.assign({
+            'Any': function (v) { return v; },
             'String': toString,
             'Boolean': toBoolean,
             'Integer': toInteger,
             'Float': toFloat,
             'Date': toDate
         }, options.types);
-        let converter = converters[name];
+        var converter = converters[name_1];
         if (converter) {
             return converter(v);
         }
         else {
-            throw new Error(`Unknown type ${name}`);
+            throw new Error("Unknown type " + name_1);
         }
     }
 }
