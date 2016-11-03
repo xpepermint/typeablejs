@@ -4,6 +4,8 @@
 
 > A library for checking and casting types.
 
+This is a light weight open source package, written with [TypeScript](https://www.typescriptlang.org), for use on **server or in browser**. The source code is available on [GitHub](https://github.com/xpepermint/typeablejs) where you can also find our [issue tracker](https://github.com/xpepermint/typeablejs/issues).
+
 ## Related Projects
 
 * [Contextable.js](https://github.com/xpepermint/contextablejs): Simple, unopinionated and minimalist framework for creating context objects with support for unopinionated ORM, object schemas, type casting, validation and error handling and more.
@@ -29,8 +31,7 @@ cast('true', 'Boolean'); // => true
 cast('10.13', 'Integer'); // => 10
 cast('10.13', 'Float'); // => 10.13
 cast(1229380112300, 'Date'); // => Date(2008-12-15T22:28:32.300Z)
-cast('John', 'Array'); // => ['John']
-cast('John', []); // => ['John']
+cast('John', ['Any']); // => ['John']
 cast(100, ['String']); // => ['100']
 cast([100], ['String']); // => ['100']
 cast('true', ['Boolean']); // => [true]
@@ -73,86 +74,85 @@ cast('value', 'Custom', {
 | ['Float'] | An array of float numbers.
 | 'Date' | A date.
 | ['Date'] | An array of dates.
-| 'BSON.ObjectId' | A BSON object (used in MongoDB).
-| ['BSON.ObjectId'] | An array of BSON objects (used in MongoDB).
-| ['Date'] | An array of dates.
-| 'Array' or [] | An array of values.
 
 ### Methods
 
-**isUndefined(value)**
-> Returns `true` if the `value` is undefined.
+**isUndefined(value)**:Boolean
+> Returns `true` if the provided `value` is of type `undefined`.
 
-**isNull(value)**
-> Returns `true` if the `value` is null.
+**isNull(value)**:Boolean
+> Returns `true` if the provided `value` is `null`.
 
-**isNaN(value)**
-> Returns `true` if the `value` is a NaN number.
+**isNaN(value)**:Boolean
+> Returns `true` if the provided `value` is `NaN` number.
 
-**isFinite(value)**
-> Returns `true` if the `value` is a finite number.
+**isFinite(value)**:Boolean
+> Returns `true` if the provided `value` is a legal finite number.
 
-**isInfinite(value)**
-> Returns `true` if the `value` is a infinite number.
+**isInfinite(value)**:Boolean
+> Returns `true` if the provided `value` represents infinite number.
 
-**isValue(value)**
-> Returns `true` if the `value` is some sort of value.
+**isValue(value)**:Boolean
+> Returns `true` if the `value` is some sort of expected value.
 
-**isString(value)**
+**isString(value)**:Boolean
 > Returns `true` if the `value` is a string value.
 
-**isBoolean(value)**
+**isBoolean(value)**:Boolean
 > Returns `true` if the `value` is a boolean value.
 
-**isNumber(value)**
+**isNumber(value)**:Boolean
 > Returns `true` if the `value` is a number.
 
-**isInteger(value)**
+**isInteger(value)**:Boolean
 > Returns `true` if the `value` is an integer number.
 
-**isFloat(value)**
+**isFloat(value)**:Boolean
 > Returns `true` if the `value` is a float number.
 
-**isDate(value)**
+**isDate(value)**:Boolean
 > Returns `true` if the `value` is a date object.
 
-**isObject(value)**
+**isObject(value)**:Boolean
 > Returns `true` if the `value` is an object (an object with keys).
 
-**isBSONObjectId(value)**
-> Returns `true` if the `value` is a BSON ObjectId (used in MongoDB).
-
-**isArray(value)**
+**isArray(value)**:Boolean
 > Returns `true` if the `value` is an array.
 
-**isAbsent(value)**
+**isAbsent(value)**:Boolean
 > Returns `true` if the `value` represents an empty value.
 
-**isPresent(value)**
+**isPresent(value)**:Boolean
 > Returns `true` if the `value` represents a present value.
 
-**toString(value)**
-> Converts the `value` to string.
+**isFunction(value)**:Boolean
+> Returns `true` if the `value` represents a function.
 
-**toBoolean(value)**
-> Converts the `value` to boolean.
+**isClass(value)**:Boolean
+> Returns `true` if the `value` represents a class object.
 
-**toInteger(value)**
-> Converts the `value` to integer.
+**isPromise(value)**:Boolean
+> Returns `true` if the `value` represents a promise object.
 
-**toFloat(value)**
-> Converts the `value` to float.
+**toString(value)**:String
+> Converts the `value` to a string value.
 
-**toDate(value)**
-> Converts the `value` to date.
+**toBoolean(value)**:Boolean
+> Converts the `value` to a boolean value.
 
-**toBSONObjectId(value)**
-> Converts the `value` to BSON ObjectId (used in MongoDB).
+**toInteger(value)**:Number
+> Converts the `value` to an integer value.
 
-**toArray(value)**
-> Converts the `value` to array.
+**toFloat(value)**:Number
+> Converts the `value` to a float value.
 
-**cast(value, type, {types})**
+**toDate(value)**:Date
+> Converts the `value` to a date object.
+
+**toArray(value)**:Array
+> Converts the `value` to an array object.
+
+**cast(value, type, {types})**:Any
 > Converts the `value` to the specified `type`.
 
 | Name | Type | Required | Default | Description

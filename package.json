@@ -1,8 +1,9 @@
 {
   "name": "typeable",
-  "version": "0.7.3",
+  "version": "0.8.0",
   "description": "A library for checking and casting types.",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "ava": {
     "files": [
       "./tests/*.js"
@@ -11,7 +12,9 @@
     "failFast": true
   },
   "scripts": {
-    "test": "ava"
+    "build": "tsc",
+    "test": "npm run build && ava",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -38,9 +41,8 @@
   "author": "Kristijan Sedlak (Xpepermint)",
   "license": "MIT",
   "devDependencies": {
-    "ava": "0.16.x"
-  },
-  "dependencies": {
-    "bson": "0.5.x"
+    "@types/bson": "0.4.30",
+    "ava": "0.16.x",
+    "typescript": "2.1.0-dev.20161103"
   }
 }
