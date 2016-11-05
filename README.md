@@ -16,6 +16,7 @@ This is a light weight open source package, written with [TypeScript](https://ww
 ## Install
 
 Run the command below to install the package.
+
 ```
 $ npm install --save typeable
 ```
