@@ -304,6 +304,10 @@ test('cast (general type)', (t) => {
   t.deepEqual(typeable.cast([100000], ['Date']), [new Date(100000)]);
 });
 
+test('cast (null type)', (t) => {
+  t.deepEqual(typeable.cast(100, null), 100);
+});
+
 test('cast (custom type)', (t) => {
   let type = null;
   let types = null;

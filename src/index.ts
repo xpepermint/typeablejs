@@ -324,18 +324,18 @@ export interface CastOptions {
 * Converts the `value` to the specified `type`.
 */
 
-export function cast (v:any, type:any, options:CastOptions={}):any {
-  if (isUndefined(v) || isNull(v)) {
+export function cast (value:any, type:any, options:CastOptions={}):any {
+  if (isUndefined(value) || isNull(value)) {
     return null;
   }
 
   if (isArray(type)) {
-    return toArray(v).map(i => cast(i, type[0], options));
+    return toArray(value).map(i => cast(i, type[0], options));
   }
-  else {
+  else if (type) {
     let name:string = isString(type) ? type : type.constructor.name;
     let converters = Object.assign({
-      'Any': (v) => v,
+      'Any': (v) => value,
       'String': toString,
       'Boolean': toBoolean,
       'Integer': toInteger,
@@ -345,10 +345,11 @@ export function cast (v:any, type:any, options:CastOptions={}):any {
 
     let converter = converters[name];
     if (converter) {
-      return converter(v);
+      return converter(value);
     }
     else {
       throw new Error(`Unknown type ${name}`);
     }
   }
+  return value;
 }

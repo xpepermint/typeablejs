@@ -1,3 +1,4 @@
 {
-  "ignore": ["dist/*", ".vscode"]
+  "ignore": ["dist/*"],
+  "ext": "js,ts"
 }

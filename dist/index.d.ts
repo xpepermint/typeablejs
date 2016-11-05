@@ -29,4 +29,4 @@ export interface CastTypes {
 export interface CastOptions {
     types?: CastTypes;
 }
-export declare function cast(v: any, type: any, options?: CastOptions): any;
+export declare function cast(value: any, type: any, options?: CastOptions): any;
