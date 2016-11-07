@@ -49,9 +49,7 @@ cast('10.13', 'Integer'); // => 10
 
 // custom types
 cast('value', 'Custom', {
-  types: {
-    Custom: (value, {type}) => `${type} ${value}`
-  }
+  Custom: (value) => `custom ${value}`
 }); // => 'custom value'
 
 // check tests for more ...
@@ -153,7 +151,7 @@ cast('value', 'Custom', {
 **toArray(value)**:Array
 > Converts the `value` to an array object.
 
-**cast(value, type, {types})**:Any
+**cast(value, type, types)**:Any
 > Converts the `value` to the specified `type`.
 
 | Name | Type | Required | Default | Description

@@ -266,12 +266,12 @@ exports.toArray = toArray;
 /*
 * Converts the `value` to the specified `type`.
 */
-function cast(value, type, options = {}) {
+function cast(value, type, types) {
     if (isUndefined(value) || isNull(value)) {
         return null;
     }
     if (isArray(type)) {
-        return toArray(value).map(i => cast(i, type[0], options));
+        return toArray(value).map(i => cast(i, type[0], types));
     }
     else if (type) {
         let name = isString(type) ? type : type.constructor.name;
@@ -282,7 +282,7 @@ function cast(value, type, options = {}) {
             'Integer': toInteger,
             'Float': toFloat,
             'Date': toDate
-        }, options.types);
+        }, types);
         let converter = converters[name];
         if (converter) {
             return converter(value);

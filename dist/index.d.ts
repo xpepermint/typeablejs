@@ -23,10 +23,7 @@ export declare function toInteger(v: any): number;
 export declare function toFloat(v: any): number;
 export declare function toDate(v: any): Date;
 export declare function toArray(v: any): Array<any>;
-export interface CastTypes {
-    [s: string]: any;
-}
-export interface CastOptions {
-    types?: CastTypes;
-}
-export declare function cast(value: any, type: any, options?: CastOptions): any;
+export declare type TypeBlock = (value: any, recipe: any) => any;
+export declare function cast(value: any, type: any, types: {
+    [type: string]: TypeBlock;
+}): any;

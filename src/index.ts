@@ -305,35 +305,29 @@ export function toArray (v:any):Array<any> {
 }
 
 /*
-* An interface defining an object of custom types.
+* Definition of the type converter block method.
 */
 
-export interface CastTypes {
-  [s: string]: any;
-}
-
-/*
-* An interface defining an object of options for the `cast` method.
-*/
-
-export interface CastOptions {
-  types?: CastTypes;
-}
+export type TypeBlock = (value: any, recipe: any) => any;
 
 /*
 * Converts the `value` to the specified `type`.
 */
 
-export function cast (value:any, type:any, options:CastOptions={}):any {
+export function cast (
+  value: any,
+  type: any,
+  types: {[type: string]: TypeBlock}
+): any {
   if (isUndefined(value) || isNull(value)) {
     return null;
   }
 
   if (isArray(type)) {
-    return toArray(value).map(i => cast(i, type[0], options));
+    return toArray(value).map(i => cast(i, type[0], types));
   }
   else if (type) {
-    let name:string = isString(type) ? type : type.constructor.name;
+    let name = isString(type) ? type : type.constructor.name;
     let converters = Object.assign({
       'Any': (v) => value,
       'String': toString,
@@ -341,7 +335,7 @@ export function cast (value:any, type:any, options:CastOptions={}):any {
       'Integer': toInteger,
       'Float': toFloat,
       'Date': toDate
-    }, options.types);
+    }, types);
 
     let converter = converters[name];
     if (converter) {
