@@ -253,6 +253,23 @@ test('toFloat', (t) => {
   t.is(typeable.toFloat('yes'), 1);
 });
 
+test('toNumber', (t) => {
+  t.is(typeable.toNumber(), null);
+  t.is(typeable.toNumber(undefined), null);
+  t.is(typeable.toNumber(null), null);
+  t.is(typeable.toNumber(false), 0);
+  t.is(typeable.toNumber(NaN), 0);
+  t.is(typeable.toNumber(0), 0);
+  t.is(typeable.toNumber(-100), -100);
+  t.is(typeable.toNumber('-100'), -100);
+  t.is(typeable.toNumber('-100.0'), -100);
+  t.is(typeable.toNumber('-100.99'), -100.99);
+  t.is(typeable.toNumber('false'), 0);
+  t.is(typeable.toNumber(Infinity), 1);
+  t.is(typeable.toNumber('true'), 1);
+  t.is(typeable.toNumber('yes'), 1);
+});
+
 test('toDate', (t) => {
   let d = new Date();
   t.is(typeable.toDate(d), d);
@@ -290,6 +307,8 @@ test('cast (general type)', (t) => {
   t.is(typeable.cast('true', 'Boolean'), true);
   t.is(typeable.cast('10.13', 'Integer'), 10);
   t.is(typeable.cast('10.13', 'Float'), 10.13);
+  t.is(typeable.cast('10.13', 'Number'), 10.13);
+
   t.deepEqual(typeable.cast(100000, 'Date'), new Date(100000));
   t.deepEqual(typeable.cast('john', ['Any']), ['john']);
   t.deepEqual(typeable.cast(100, ['String']), ['100']);
@@ -300,6 +319,8 @@ test('cast (general type)', (t) => {
   t.deepEqual(typeable.cast(['10.13'], ['Integer']), [10]);
   t.deepEqual(typeable.cast('10.13', ['Float']), [10.13]);
   t.deepEqual(typeable.cast(['10.13'], ['Float']), [10.13]);
+  t.deepEqual(typeable.cast('10.13', ['Number']), [10.13]);
+  t.deepEqual(typeable.cast(['10.13'], ['Number']), [10.13]);
   t.deepEqual(typeable.cast(100000, ['Date']), [new Date(100000)]);
   t.deepEqual(typeable.cast([100000], ['Date']), [new Date(100000)]);
 });

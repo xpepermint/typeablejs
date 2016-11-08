@@ -235,6 +235,13 @@ function toFloat(v) {
 }
 exports.toFloat = toFloat;
 /*
+* Converts the `value` to a number value (alias of toFloat).
+*/
+function toNumber(v) {
+    return toFloat(v);
+}
+exports.toNumber = toNumber;
+/*
 * Converts the `value` to a date object.
 */
 function toDate(v) {
@@ -281,6 +288,7 @@ function cast(value, type, types) {
             'Boolean': toBoolean,
             'Integer': toInteger,
             'Float': toFloat,
+            'Number': toNumber,
             'Date': toDate
         }, types);
         let converter = converters[name];

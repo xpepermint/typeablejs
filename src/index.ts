@@ -271,6 +271,14 @@ export function toFloat (v:any):number {
 }
 
 /*
+* Converts the `value` to a number value (alias of toFloat).
+*/
+
+export function toNumber (v:any):number {
+  return toFloat(v);
+}
+
+/*
 * Converts the `value` to a date object.
 */
 
@@ -334,6 +342,7 @@ export function cast (
       'Boolean': toBoolean,
       'Integer': toInteger,
       'Float': toFloat,
+      'Number': toNumber,
       'Date': toDate
     }, types);
 

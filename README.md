@@ -31,6 +31,7 @@ cast(100, 'String'); // => '100'
 cast('true', 'Boolean'); // => true
 cast('10.13', 'Integer'); // => 10
 cast('10.13', 'Float'); // => 10.13
+cast('10.13', 'Number'); // => 10.13
 cast(1229380112300, 'Date'); // => Date(2008-12-15T22:28:32.300Z)
 cast('John', ['Any']); // => ['John']
 cast(100, ['String']); // => ['100']
@@ -41,6 +42,8 @@ cast('10.13', ['Integer']); // => [10]
 cast(['10.13'], ['Integer']); // => [10]
 cast('10.13', ['Float']); // => [10.13]
 cast(['10.13'], ['Float']); // => [10.13]
+cast('10.13', ['Number']); // => [10.13]
+cast(['10.13'], ['Number']); // => [10.13]
 cast(1229380112300, ['Date']); // => [Date(2008-12-15T22:28:32.300Z)]
 cast([1229380112300], ['Date']); // => [Date(2008-12-15T22:28:32.300Z)]
 
@@ -67,6 +70,8 @@ cast('value', 'Custom', {
 | ['String'] | An array of string values.
 | 'Boolean' | A boolean value.
 | ['Boolean'] | An array of boolean values.
+| 'Number' | An integer or a float number.
+| ['Number'] | An array of integer or float numbers.
 | 'Integer' | An integer number.
 | ['Integer'] | An array of integer numbers.
 | 'Float' | A float number.
@@ -138,6 +143,9 @@ cast('value', 'Custom', {
 
 **toBoolean(value)**:Boolean
 > Converts the `value` to a boolean value.
+
+**toNumber(value)**:Number
+> Converts the `value` to a number value.
 
 **toInteger(value)**:Number
 > Converts the `value` to an integer value.
