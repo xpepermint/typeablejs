@@ -264,12 +264,12 @@ function cast(value, type, types) {
         return null;
     }
     if (isArray(type)) {
-        return toArray(value).map(i => cast(i, type[0], types));
+        return toArray(value).map(function (i) { return cast(i, type[0], types); });
     }
     else if (type) {
-        let name = isString(type) ? type : type.constructor.name;
-        let converters = Object.assign({
-            'Any': (v) => value,
+        var name = isString(type) ? type : type.constructor.name;
+        var converters = Object.assign({
+            'Any': function (v) { return value; },
             'String': toString,
             'Boolean': toBoolean,
             'Integer': toInteger,
@@ -277,12 +277,12 @@ function cast(value, type, types) {
             'Number': toNumber,
             'Date': toDate
         }, types);
-        let converter = converters[name];
+        var converter = converters[name];
         if (converter) {
             return converter(value);
         }
         else {
-            throw new Error(`Unknown type ${name}`);
+            throw new Error("Unknown type " + name);
         }
     }
     return value;
