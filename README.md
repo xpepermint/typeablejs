@@ -21,7 +21,7 @@ Run the command below to install the package.
 $ npm install --save typeable
 ```
 
-This package is targeting `es6`. If you plan to use this package in a browser, you need to transpile it with [Babel](https://babeljs.io). The `.bablerc` configuration example below transpiles for browsers `>= IE9`.
+This package is targeting `es6`. If you plan to use it in a browser, you need to transpile it with [Babel](https://babeljs.io) or similar. The `.bablerc` configuration example below transpiles for browsers `>= IE9`.
 
 ```js
 {
