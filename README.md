@@ -21,18 +21,9 @@ Run the command below to install the package.
 $ npm install --save typeable
 ```
 
-This package is targeting `es6`. If you plan to use it in a browser, you need to transpile it with [Babel](https://babeljs.io) or similar. The `.bablerc` configuration example below transpiles for browsers `>= IE9`.
+This package is targeting `es2015`. If you plan to use it in a browser, you need to transpile it with [Babel](https://babeljs.io) or similar tool.
 
-```js
-{
-  "presets": [
-    "es2015"
-  ],
-  "plugins": [
-    "transform-object-assign"
-  ]
-}
-```
+To support browsers `>= IE9` you need to use the [transform-object-assign](https://www.npmjs.com/package/babel-plugin-transform-object-assign) plugin.
 
 ## Example
 
