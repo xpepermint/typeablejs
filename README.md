@@ -21,6 +21,19 @@ Run the command below to install the package.
 $ npm install --save typeable
 ```
 
+The packet is targeting `es6`. If you plan to use this package in a browser, you need to transpile it with [Babel](https://babeljs.io). The `.bablerc` configuration example below transpiled for browsers down to `ie9`.
+
+```js
+{
+  "presets": [
+    "es2015"
+  ],
+  "plugins": [
+    "transform-object-assign"
+  ]
+}
+```
+
 ## Example
 
 ```js
