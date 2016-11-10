@@ -15,22 +15,6 @@ export function isNull (v:any):boolean {
 }
 
 /*
-* Returns `true` if the provided value is `NaN` number.
-*/
-
-export function isNaN (v:any):boolean {
-  return Number.isNaN(v);
-}
-
-/*
-* Returns `true` if the provided value is a legal finite number.
-*/
-
-export function isFinite (v:any):boolean {
-  return Number.isFinite(v);
-}
-
-/*
 * Returns `true` if the provided value represents infinite number.
 */
 
@@ -46,7 +30,7 @@ export function isValue (v:any):boolean {
   return (
     !isUndefined(v)
     && !isNull(v)
-    && !isNaN(v)
+    && !(isNumber(v) && isNaN(v))
     && !isInfinite(v)
   );
 }
@@ -80,7 +64,7 @@ export function isNumber (v:any):boolean {
 */
 
 export function isInteger (v:any):boolean {
-  return Number.isInteger(v);
+  return isNumber(v) ? v % 1 === 0 : false;
 }
 
 /*
@@ -135,7 +119,7 @@ export function isAbsent (v:any):boolean {
   return (
     isUndefined(v)
     || isNull(v)
-    || isNaN(v)
+    || (isNumber(v) && isNaN(v))
     || isString(v) && v === ''
     || isArray(v) && v.length === 0
     || isObject(v) && Object.keys(v).length === 0

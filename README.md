@@ -87,12 +87,6 @@ cast('value', 'Custom', {
 **isNull(value)**:Boolean
 > Returns `true` if the provided `value` is `null`.
 
-**isNaN(value)**:Boolean
-> Returns `true` if the provided `value` is `NaN` number.
-
-**isFinite(value)**:Boolean
-> Returns `true` if the provided `value` is a legal finite number.
-
 **isInfinite(value)**:Boolean
 > Returns `true` if the provided `value` represents infinite number.
 

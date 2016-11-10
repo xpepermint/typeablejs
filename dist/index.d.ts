@@ -1,7 +1,5 @@
 export declare function isUndefined(v: any): boolean;
 export declare function isNull(v: any): boolean;
-export declare function isNaN(v: any): boolean;
-export declare function isFinite(v: any): boolean;
 export declare function isInfinite(v: any): boolean;
 export declare function isValue(v: any): boolean;
 export declare function isString(v: any): boolean;

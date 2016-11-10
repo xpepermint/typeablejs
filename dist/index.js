@@ -14,20 +14,6 @@ function isNull(v) {
 }
 exports.isNull = isNull;
 /*
-* Returns `true` if the provided value is `NaN` number.
-*/
-function isNaN(v) {
-    return Number.isNaN(v);
-}
-exports.isNaN = isNaN;
-/*
-* Returns `true` if the provided value is a legal finite number.
-*/
-function isFinite(v) {
-    return Number.isFinite(v);
-}
-exports.isFinite = isFinite;
-/*
 * Returns `true` if the provided value represents infinite number.
 */
 function isInfinite(v) {
@@ -40,7 +26,7 @@ exports.isInfinite = isInfinite;
 function isValue(v) {
     return (!isUndefined(v)
         && !isNull(v)
-        && !isNaN(v)
+        && !(isNumber(v) && isNaN(v))
         && !isInfinite(v));
 }
 exports.isValue = isValue;
@@ -69,7 +55,7 @@ exports.isNumber = isNumber;
 * Returns `true` if the `value` is an integer number.
 */
 function isInteger(v) {
-    return Number.isInteger(v);
+    return isNumber(v) ? v % 1 === 0 : false;
 }
 exports.isInteger = isInteger;
 /*
@@ -112,7 +98,7 @@ exports.isArray = isArray;
 function isAbsent(v) {
     return (isUndefined(v)
         || isNull(v)
-        || isNaN(v)
+        || (isNumber(v) && isNaN(v))
         || isString(v) && v === ''
         || isArray(v) && v.length === 0
         || isObject(v) && Object.keys(v).length === 0);

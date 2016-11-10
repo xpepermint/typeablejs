@@ -13,25 +13,6 @@ test('isNull', (t) => {
   t.is(typeable.isNull(''), false);
 });
 
-test('isNaN', (t) => {
-  t.is(typeable.isNaN(NaN), true);
-  t.is(typeable.isNaN(undefined), false);
-  t.is(typeable.isNaN(null), false);
-  t.is(typeable.isNaN(0), false);
-});
-
-test('isFinite', (t) => {
-  t.is(typeable.isFinite(0), true);
-  t.is(typeable.isFinite(-100), true);
-  t.is(typeable.isFinite(null), false);
-  t.is(typeable.isFinite(''), false);
-  t.is(typeable.isFinite([]), false);
-  t.is(typeable.isFinite({}), false);
-  t.is(typeable.isFinite(false), false);
-  t.is(typeable.isFinite(undefined), false);
-  t.is(typeable.isFinite(Infinity), false);
-});
-
 test('isInfinite', (t) => {
   t.is(typeable.isInfinite(Infinity), true);
   t.is(typeable.isInfinite(0), false);
