@@ -4,7 +4,7 @@
 
 > A library for checking and casting types.
 
-This is a light weight open source package, for use on **server** or in **browser** (using module bundler). The source code is available on [GitHub](https://github.com/xpepermint/typeablejs) where you can also find our [issue tracker](https://github.com/xpepermint/typeablejs/issues).
+This is a light weight open source package for use on **server** or in **browser** (using module bundler). The source code is available on [GitHub](https://github.com/xpepermint/typeablejs) where you can also find our [issue tracker](https://github.com/xpepermint/typeablejs/issues).
 
 ## Related Projects
 
