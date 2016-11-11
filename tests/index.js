@@ -1,5 +1,5 @@
 import test from 'ava';
-import typeable from '../dist';
+import * as typeable from '../dist';
 
 test('isUndefined', (t) => {
   t.is(typeable.isUndefined(), true);

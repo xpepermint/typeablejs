@@ -2,7 +2,7 @@
 * Returns `true` if the provided value is of type `undefined`.
 */
 
-export function isUndefined (v:any):boolean {
+export function isUndefined (v) {
   return typeof v === 'undefined' || v === undefined;
 }
 
@@ -10,7 +10,7 @@ export function isUndefined (v:any):boolean {
 * Returns `true` if the provided value is `null`.
 */
 
-export function isNull (v:any):boolean {
+export function isNull (v) {
   return v === null;
 }
 
@@ -18,7 +18,7 @@ export function isNull (v:any):boolean {
 * Returns `true` if the provided value represents infinite number.
 */
 
-export function isInfinite (v:any):boolean {
+export function isInfinite (v) {
   return v === Infinity;
 }
 
@@ -26,7 +26,7 @@ export function isInfinite (v:any):boolean {
 * Returns `true` if the `value` is some sort of expected value.
 */
 
-export function isValue (v:any):boolean {
+export function isValue (v) {
   return (
     !isUndefined(v)
     && !isNull(v)
@@ -39,7 +39,7 @@ export function isValue (v:any):boolean {
 * Returns `true` if the `value` is a string value.
 */
 
-export function isString (v:any):boolean {
+export function isString (v) {
   return typeof v === 'string';
 }
 
@@ -47,7 +47,7 @@ export function isString (v:any):boolean {
 * Returns `true` if the `value` is a boolean value.
 */
 
-export function isBoolean (v:any):boolean {
+export function isBoolean (v) {
   return typeof v === 'boolean';
 }
 
@@ -55,7 +55,7 @@ export function isBoolean (v:any):boolean {
 * Returns `true` if the `value` is a number.
 */
 
-export function isNumber (v:any):boolean {
+export function isNumber (v) {
   return typeof v === 'number';
 }
 
@@ -63,7 +63,7 @@ export function isNumber (v:any):boolean {
 * Returns `true` if the `value` is an integer number.
 */
 
-export function isInteger (v:any):boolean {
+export function isInteger (v) {
   return isNumber(v) ? v % 1 === 0 : false;
 }
 
@@ -71,7 +71,7 @@ export function isInteger (v:any):boolean {
 * Returns `true` if the `value` is a float number.
 */
 
-export function isFloat (v:any):boolean {
+export function isFloat (v) {
   return (
     isNumber(v)
     && isFinite(v)
@@ -82,7 +82,7 @@ export function isFloat (v:any):boolean {
 * Returns `true` if the `value` is a date object.
 */
 
-export function isDate (v:any):boolean {
+export function isDate (v) {
   return (
     !isUndefined(v)
     && !isNull(v)
@@ -95,7 +95,7 @@ export function isDate (v:any):boolean {
 * Returns `true` if the `value` is an object (an object with keys).
 */
 
-export function isObject (v:any):boolean {
+export function isObject (v) {
   return (
     !isUndefined(v)
     && !isNull(v)
@@ -107,7 +107,7 @@ export function isObject (v:any):boolean {
 * Returns `true` if the `value` is an array.
 */
 
-export function isArray (v:any):boolean {
+export function isArray (v) {
   return Array.isArray(v);
 }
 
@@ -115,7 +115,7 @@ export function isArray (v:any):boolean {
 * Returns `true` if the `value` represents an empty value.
 */
 
-export function isAbsent (v:any):boolean {
+export function isAbsent (v) {
   return (
     isUndefined(v)
     || isNull(v)
@@ -130,7 +130,7 @@ export function isAbsent (v:any):boolean {
 * Returns `true` if the `value` represents a present value.
 */
 
-export function isPresent (v:any):boolean {
+export function isPresent (v) {
   return !isAbsent(v);
 }
 
@@ -138,7 +138,7 @@ export function isPresent (v:any):boolean {
 * Returns `true` if the `value` represents a function.
 */
 
-export function isFunction (v:any):boolean {
+export function isFunction (v) {
   return typeof v === 'function';
 }
 
@@ -146,7 +146,7 @@ export function isFunction (v:any):boolean {
 * Returns `true` if the `value` represents a class object.
 */
 
-export function isClass (v:any):boolean {
+export function isClass (v) {
   return isFunction(v);
 }
 
@@ -154,7 +154,7 @@ export function isClass (v:any):boolean {
 * Returns `true` if the `value` represents a promise object.
 */
 
-export function isPromise (v:any):boolean {
+export function isPromise (v) {
   return (
     isPresent(v)
     && v.constructor
@@ -166,7 +166,7 @@ export function isPromise (v:any):boolean {
 * Converts the `value` to a string value.
 */
 
-export function toString (v:any):string {
+export function toString (v) {
   if (isString(v)) {
     return v;
   }
@@ -182,7 +182,7 @@ export function toString (v:any):string {
 * Converts the `value` to a boolean value.
 */
 
-export function toBoolean (v:any):boolean {
+export function toBoolean (v) {
   if (isBoolean(v)) {
     return v;
   }
@@ -205,7 +205,7 @@ export function toBoolean (v:any):boolean {
 * Converts the `value` to an integer value.
 */
 
-export function toInteger (v:any):number {
+export function toInteger (v) {
   if (isInteger(v)) {
     return v;
   }
@@ -233,7 +233,7 @@ export function toInteger (v:any):number {
 * Converts the `value` to a float value.
 */
 
-export function toFloat (v:any):number {
+export function toFloat (v) {
   if (isFloat(v)) {
     return v;
   }
@@ -258,7 +258,7 @@ export function toFloat (v:any):number {
 * Converts the `value` to a number value (alias of toFloat).
 */
 
-export function toNumber (v:any):number {
+export function toNumber (v) {
   return toFloat(v);
 }
 
@@ -266,7 +266,7 @@ export function toNumber (v:any):number {
 * Converts the `value` to a date object.
 */
 
-export function toDate (v:any):Date {
+export function toDate (v) {
   var date = isDate(v) ? v : new Date(v);
   var time = date.getTime();
   var isValid = (
@@ -281,7 +281,7 @@ export function toDate (v:any):Date {
 * Converts the `value` to an array object.
 */
 
-export function toArray (v:any):Array<any> {
+export function toArray (v) {
   if (isArray(v)) {
     return v;
   }
@@ -297,20 +297,10 @@ export function toArray (v:any):Array<any> {
 }
 
 /*
-* Definition of the type converter block method.
-*/
-
-export type TypeBlock = (value: any, recipe: any) => any;
-
-/*
 * Converts the `value` to the specified `type`.
 */
 
-export function cast (
-  value: any,
-  type: any,
-  types: {[type: string]: TypeBlock}
-): any {
+export function cast (value, type, types = []) {
   if (isUndefined(value) || isNull(value)) {
     return null;
   }
