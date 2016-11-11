@@ -21,12 +21,6 @@ Run the command below to install the package.
 $ npm install --save typeable
 ```
 
-This package is targeting `es2015`. If you plan to use it in a browser, you need to transpile it with [Babel](https://babeljs.io) or similar tool.
-
-To support browsers `>= IE9` you need to
-* use the [preset-es2015](https://babeljs.io/docs/plugins/preset-es2015/) preset,
-* use the [transform-object-assign](https://www.npmjs.com/package/babel-plugin-transform-object-assign) plugin.
-
 ## Example
 
 ```js
