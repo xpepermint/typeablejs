@@ -1,3 +1,5 @@
+import * as merge from 'lodash.merge';
+
 /*
 * Returns `true` if the provided value is of type `undefined`.
 */
@@ -266,7 +268,7 @@ export function toNumber (v) {
 * Converts the `value` to a date object.
 */
 
-export function toDate (v) {
+export function toDate (v): Date {
   var date = isDate(v) ? v : new Date(v);
   var time = date.getTime();
   var isValid = (
@@ -281,7 +283,7 @@ export function toDate (v) {
 * Converts the `value` to an array object.
 */
 
-export function toArray (v) {
+export function toArray (v): Array<any> {
   if (isArray(v)) {
     return v;
   }
@@ -300,7 +302,7 @@ export function toArray (v) {
 * Converts the `value` to the specified `type`.
 */
 
-export function cast (value, type, types = []) {
+export function cast (value, type, types: Array<any> = []) {
   if (isUndefined(value) || isNull(value)) {
     return null;
   }
@@ -310,7 +312,7 @@ export function cast (value, type, types = []) {
   }
   else if (type) {
     let name = isString(type) ? type : type.constructor.name;
-    let converters = Object.assign({
+    let converters = merge({
       'Any': (v) => value,
       'String': toString,
       'Boolean': toBoolean,
