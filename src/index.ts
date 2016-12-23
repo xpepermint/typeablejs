@@ -1,5 +1,3 @@
-import * as merge from 'lodash.merge';
-
 /*
 * Returns `true` if the provided value is of type `undefined`.
 */
@@ -302,17 +300,19 @@ export function toArray (v): Array<any> {
 * Converts the `value` to the specified `type`.
 */
 
-export function cast (value, type, types: Array<any> = []) {
-  if (isUndefined(value) || isNull(value)) {
+export function cast (value, type) {
+  if (isUndefined(value) || isNull(value)) { // nullify
     return null;
   }
 
   if (isArray(type)) {
-    return toArray(value).map(i => cast(i, type[0], types));
+    return toArray(value).map(i => cast(i, type[0]));
   }
-  else if (type) {
-    let name = isString(type) ? type : type.constructor.name;
-    let converters = merge({
+  else if (isFunction(type)) {
+    return type(value);
+  }
+  else if (isString(type)) {
+    let converter = {
       'Any': (v) => value,
       'String': toString,
       'Boolean': toBoolean,
@@ -320,9 +320,7 @@ export function cast (value, type, types: Array<any> = []) {
       'Float': toFloat,
       'Number': toNumber,
       'Date': toDate
-    }, types);
-
-    let converter = converters[name];
+    }[type];
     if (converter) {
       return converter(value);
     }
@@ -330,5 +328,7 @@ export function cast (value, type, types: Array<any> = []) {
       throw new Error(`Unknown type ${name}`);
     }
   }
-  return value;
+  else {
+    return value;
+  }
 }

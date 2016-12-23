@@ -308,28 +308,11 @@ test('cast (general type)', (t) => {
 
 test('cast (null type)', (t) => {
   t.deepEqual(typeable.cast(100, null), 100);
+  t.deepEqual(typeable.cast(100, undefined), 100);
 });
 
 test('cast (custom type)', (t) => {
-  let type = null;
-  let types = null;
-
-  type = 'Schema';
-  types = {Schema: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, type, types), '100 as Schema');
-  t.deepEqual(typeable.cast(undefined, type, types), null);
-  t.deepEqual(typeable.cast(null, type, types), null);
-  t.deepEqual(typeable.cast(NaN, type, types), 'NaN as Schema');
-
-  type = new class Schema {};
-  types = {Schema: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, type, types), '100 as Schema');
-
-  type = [new class Schema {}];
-  types = {Schema: (value) => `${value} as Schema`};
-  t.deepEqual(typeable.cast(100, type, types), ['100 as Schema']);
-  t.deepEqual(typeable.cast(undefined, type, types), null);
-  t.deepEqual(typeable.cast(null, type, types), null);
-  t.deepEqual(typeable.cast(NaN, type, types), []);
-  t.deepEqual(typeable.cast(Infinity, type, types), []);
+  t.deepEqual(typeable.cast('foo', (v) => `${v}-bar`), 'foo-bar');
+  t.deepEqual(typeable.cast('foo', [(v) => `${v}-bar`]), ['foo-bar']);
+  t.deepEqual(typeable.cast(['foo0', 'foo1'], [(v) => `${v}-bar`]), ['foo0-bar', 'foo1-bar']);
 });

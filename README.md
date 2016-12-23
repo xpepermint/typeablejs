@@ -21,7 +21,7 @@ Run the command below to install the package.
 $ npm install --save typeable
 ```
 
-## Example
+## Examples
 
 ```js
 import {cast} from 'typeable';
@@ -51,11 +51,7 @@ cast([1229380112300], ['Date']); // => [Date(2008-12-15T22:28:32.300Z)]
 cast('10.13', 'Integer'); // => 10
 
 // custom types
-cast('value', 'Custom', {
-  Custom: (value) => `custom ${value}`
-}); // => 'custom value'
-
-// check tests for more ...
+cast('value', (value) => `custom ${value}`); // => 'custom value'
 ```
 
 ## API
@@ -78,89 +74,90 @@ cast('value', 'Custom', {
 | ['Float'] | An array of float numbers.
 | 'Date' | A date.
 | ['Date'] | An array of dates.
+| Function | Custom type.
+| [Function] | Custom type.
 
 ### Methods
 
-**isUndefined(value)**:Boolean
-> Returns `true` if the provided `value` is of type `undefined`.
-
-**isNull(value)**:Boolean
-> Returns `true` if the provided `value` is `null`.
-
-**isInfinite(value)**:Boolean
-> Returns `true` if the provided `value` represents infinite number.
-
-**isValue(value)**:Boolean
-> Returns `true` if the `value` is some sort of expected value.
-
-**isString(value)**:Boolean
-> Returns `true` if the `value` is a string value.
-
-**isBoolean(value)**:Boolean
-> Returns `true` if the `value` is a boolean value.
-
-**isNumber(value)**:Boolean
-> Returns `true` if the `value` is a number.
-
-**isInteger(value)**:Boolean
-> Returns `true` if the `value` is an integer number.
-
-**isFloat(value)**:Boolean
-> Returns `true` if the `value` is a float number.
-
-**isDate(value)**:Boolean
-> Returns `true` if the `value` is a date object.
-
-**isObject(value)**:Boolean
-> Returns `true` if the `value` is an object (an object with keys).
-
-**isArray(value)**:Boolean
-> Returns `true` if the `value` is an array.
-
-**isAbsent(value)**:Boolean
-> Returns `true` if the `value` represents an empty value.
-
-**isPresent(value)**:Boolean
-> Returns `true` if the `value` represents a present value.
-
-**isFunction(value)**:Boolean
-> Returns `true` if the `value` represents a function.
-
-**isClass(value)**:Boolean
-> Returns `true` if the `value` represents a class object.
-
-**isPromise(value)**:Boolean
-> Returns `true` if the `value` represents a promise object.
-
-**toString(value)**:String
-> Converts the `value` to a string value.
-
-**toBoolean(value)**:Boolean
-> Converts the `value` to a boolean value.
-
-**toNumber(value)**:Number
-> Converts the `value` to a number value.
-
-**toInteger(value)**:Number
-> Converts the `value` to an integer value.
-
-**toFloat(value)**:Number
-> Converts the `value` to a float value.
-
-**toDate(value)**:Date
-> Converts the `value` to a date object.
-
-**toArray(value)**:Array
-> Converts the `value` to an array object.
-
-**cast(value, type, types)**:Any
+**cast(value, type)**:Any
 > Converts the `value` to the specified `type`.
 
 | Name | Type | Required | Default | Description
 |------|------|----------|---------|------------
 | value | Any | Yes | - | A value to be casted.
 | type | String | Yes | - | Data type name.
-| types | Object | No | An object of built-in types. | An object for adding new data type and overriding existing ones.
+
+**isAbsent(value)**:Boolean
+> Returns `true` if the `value` represents an empty value.
+
+**isArray(value)**:Boolean
+> Returns `true` if the `value` is an array.
+
+**isBoolean(value)**:Boolean
+> Returns `true` if the `value` is a boolean value.
+
+**isClass(value)**:Boolean
+> Returns `true` if the `value` represents a class object.
+
+**isDate(value)**:Boolean
+> Returns `true` if the `value` is a date object.
+
+**isFloat(value)**:Boolean
+> Returns `true` if the `value` is a float number.
+
+**isFunction(value)**:Boolean
+> Returns `true` if the `value` represents a function.
+
+**isInfinite(value)**:Boolean
+> Returns `true` if the provided `value` represents infinite number.
+
+**isInteger(value)**:Boolean
+> Returns `true` if the `value` is an integer number.
+
+**isNull(value)**:Boolean
+> Returns `true` if the provided `value` is `null`.
+
+**isNumber(value)**:Boolean
+> Returns `true` if the `value` is a number.
+
+**isObject(value)**:Boolean
+> Returns `true` if the `value` is an object (an object with keys).
+
+**isPresent(value)**:Boolean
+> Returns `true` if the `value` represents a present value.
+
+**isPromise(value)**:Boolean
+> Returns `true` if the `value` represents a promise object.
+
+**isString(value)**:Boolean
+> Returns `true` if the `value` is a string value.
+
+**isUndefined(value)**:Boolean
+> Returns `true` if the provided `value` is of type `undefined`.
+
+**isValue(value)**:Boolean
+> Returns `true` if the `value` is some sort of expected value.
+
+**toArray(value)**:Array
+> Converts the `value` to an array object.
+
+**toBoolean(value)**:Boolean
+> Converts the `value` to a boolean value.
+
+**toDate(value)**:Date
+> Converts the `value` to a date object.
+
+**toFloat(value)**:Number
+> Converts the `value` to a float value.
+
+**toInteger(value)**:Number
+> Converts the `value` to an integer value.
+
+**toNumber(value)**:Number
+> Converts the `value` to a number value.
+
+**toString(value)**:String
+> Converts the `value` to a string value.
 
 ## License (MIT)
 

@@ -22,4 +22,4 @@ export declare function toFloat(v: any): any;
 export declare function toNumber(v: any): any;
 export declare function toDate(v: any): Date;
 export declare function toArray(v: any): Array<any>;
-export declare function cast(value: any, type: any, types?: Array<any>): any;
+export declare function cast(value: any, type: any): any;

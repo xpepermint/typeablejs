@@ -1,8 +1,7 @@
-"use strict";
-var merge = require("lodash.merge");
 /*
 * Returns `true` if the provided value is of type `undefined`.
 */
+"use strict";
 function isUndefined(v) {
     return typeof v === 'undefined' || v === undefined;
 }
@@ -260,17 +259,18 @@ exports.toArray = toArray;
 /*
 * Converts the `value` to the specified `type`.
 */
-function cast(value, type, types) {
-    if (types === void 0) { types = []; }
+function cast(value, type) {
     if (isUndefined(value) || isNull(value)) {
         return null;
     }
     if (isArray(type)) {
-        return toArray(value).map(function (i) { return cast(i, type[0], types); });
+        return toArray(value).map(function (i) { return cast(i, type[0]); });
     }
-    else if (type) {
-        var name_1 = isString(type) ? type : type.constructor.name;
-        var converters = merge({
+    else if (isFunction(type)) {
+        return type(value);
+    }
+    else if (isString(type)) {
+        var converter = {
             'Any': function (v) { return value; },
             'String': toString,
             'Boolean': toBoolean,
@@ -278,15 +278,16 @@ function cast(value, type, types) {
             'Float': toFloat,
             'Number': toNumber,
             'Date': toDate
-        }, types);
-        var converter = converters[name_1];
+        }[type];
         if (converter) {
             return converter(value);
         }
         else {
-            throw new Error("Unknown type " + name_1);
+            throw new Error("Unknown type " + name);
         }
     }
-    return value;
+    else {
+        return value;
+    }
 }
 exports.cast = cast;

@@ -1,6 +1,6 @@
 {
   "name": "typeable",
-  "version": "0.21.0",
+  "version": "1.0.0",
   "description": "A library for checking and casting types.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -44,8 +44,5 @@
   "devDependencies": {
     "ava": "^0.17.0",
     "typescript": "^2.1.4"
-  },
-  "dependencies": {
-    "lodash.merge": "4.6.0"
   }
 }
