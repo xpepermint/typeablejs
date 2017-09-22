@@ -1,7 +1,8 @@
+"use strict";
 /*
 * Returns `true` if the provided value is of type `undefined`.
 */
-"use strict";
+exports.__esModule = true;
 function isUndefined(v) {
     return typeof v === 'undefined' || v === undefined;
 }
