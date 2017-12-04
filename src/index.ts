@@ -325,7 +325,7 @@ export function cast (value, type) {
       return converter(value);
     }
     else {
-      throw new Error(`Unknown type ${name}`);
+      throw new Error(`Unknown type ${type}`);
     }
   }
   else {
