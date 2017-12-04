@@ -315,4 +315,5 @@ test('cast (custom type)', (t) => {
   t.deepEqual(typeable.cast('foo', (v) => `${v}-bar`), 'foo-bar');
   t.deepEqual(typeable.cast('foo', [(v) => `${v}-bar`]), ['foo-bar']);
   t.deepEqual(typeable.cast(['foo0', 'foo1'], [(v) => `${v}-bar`]), ['foo0-bar', 'foo1-bar']);
+  t.throws(() => { typeable.cast({ my: 'object' }, 'object') }, 'Unknown type object');
 });
