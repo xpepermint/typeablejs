@@ -1,6 +1,6 @@
 {
   "name": "typeable",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "A library for checking and casting types.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -42,7 +42,7 @@
   "author": "Kristijan Sedlak (Xpepermint)",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^0.24.0",
-    "typescript": "^2.6.2"
+    "ava": "^0.25.0",
+    "typescript": "^2.8.1"
   }
 }

@@ -261,7 +261,7 @@ exports.toArray = toArray;
 * Converts the `value` to the specified `type`.
 */
 function cast(value, type) {
-    if (isUndefined(value) || isNull(value)) {
+    if (isUndefined(value) || isNull(value)) { // nullify
         return null;
     }
     if (isArray(type)) {
