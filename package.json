@@ -42,7 +42,7 @@
   "author": "Kristijan Sedlak (Xpepermint)",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^0.25.0",
+    "ava": "^5.1.0",
     "typescript": "^2.8.1"
   }
 }
